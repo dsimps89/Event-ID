@@ -1,0 +1,3 @@
+LUMEN V2 is educational reflection and visualization software. Outputs are designed scenario-model results, not diagnoses, professional assessments, predictions, verified physical locations, proof that an event occurred, government identification, money, stored value, or investment products.
+
+The included checkout code is an integration scaffold. The merchant is responsible for Stripe configuration, Apple Pay eligibility, tax registration, product tax classification, customer terms, refunds, privacy, security, accessibility, and legal compliance.
