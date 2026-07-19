@@ -1,3 +1,7 @@
+# LUMEN V2 — Fill First, Pay to Export
+
+Users complete and review the full LUMEN experience before checkout. The $20 CAD + tax purchase unlocks PNG, report, JSON, print, and CSV export access for 30 days in the verified browser.
+
 # LUMEN V2 — $20 CAD + tax purchase build
 
 This repository protects the LUMEN application behind a **server-verified Stripe Checkout payment**. Stripe Checkout can present Apple Pay when the buyer's browser/device supports it and Apple Pay is enabled for the merchant domain.

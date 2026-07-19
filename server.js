@@ -134,6 +134,8 @@ app.get('/api/config', (_req, res) => {
 
 app.post('/api/create-checkout-session', async (req, res) => {
   try {
+    const artifactId = String(req.body?.artifactId || '').slice(0, 80);
+    const artifactTitle = String(req.body?.artifactTitle || 'LUMEN artifact').slice(0, 120);
     const productData = { name: PRODUCT_NAME };
     if (process.env.STRIPE_TAX_CODE) productData.tax_code = process.env.STRIPE_TAX_CODE;
 
@@ -153,8 +155,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
       customer_creation: 'always',
       consent_collection: { terms_of_service: 'required' },
       success_url: `${BASE_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${BASE_URL}/?checkout=cancelled`,
-      metadata: { product: 'lumen-v2', accessDays: String(ACCESS_DAYS) }
+      cancel_url: `${BASE_URL}/?checkout=cancelled#purchasePanel`,
+      metadata: { product: 'lumen-v2', accessDays: String(ACCESS_DAYS), artifactId, artifactTitle }
     });
 
     res.json({ url: session.url });
@@ -178,7 +180,7 @@ app.post('/api/verify-session', async (req, res) => {
       return res.status(402).json({ error: 'Payment has not been verified.' });
     }
     setAccessCookie(res, session.id);
-    res.json({ ok: true, redirect: '/app' });
+    res.json({ ok: true, redirect: '/?paid=1#purchasePanel' });
   } catch (error) {
     console.error(error);
     res.status(400).json({ error: 'Checkout verification failed.' });
@@ -194,11 +196,7 @@ app.post('/api/logout', (req, res) => {
   res.json({ ok: true });
 });
 
-app.get('/app', (req, res) => {
-  if (!hasAccess(req)) return res.redirect('/?access=required');
-  res.set('Cache-Control', 'private, no-store');
-  res.sendFile(path.join(__dirname, 'private', 'app.html'));
-});
+app.get('/app', (_req, res) => res.redirect('/'));
 
 app.get('/download/lumen_topography_library.csv', (req, res) => {
   if (!hasAccess(req)) return res.status(401).send('Purchase access required.');
