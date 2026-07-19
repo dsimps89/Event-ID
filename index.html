@@ -3,155 +3,172 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LUMEN Experience Credit Pass</title>
+<title>LUMEN — Personalized Insight Experience</title>
+<meta name="description" content="A customizable guided situation, option, and outcome experience with an Apple Pay-gated downloadable insight artifact.">
+<script async crossorigin src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
 :root{
-  --bg:#07101f;--panel:#0e1a31;--panel2:#132442;--line:#29446f;--text:#f7fbff;--muted:#9fb4d4;
-  --cyan:#28e0ff;--violet:#9a65ff;--pink:#ff4fc6;--lime:#b7ff4a;--gold:#ffc857;--danger:#ff6b7d;
+ --void:#050710;--deep:#091328;--panel:#0d1830;--panel2:#111f3b;--line:#29476d;
+ --text:#f7fbff;--muted:#9ab0cf;--cyan:#2ce8ff;--violet:#936cff;--pink:#ff52bf;
+ --lime:#c7ff58;--gold:#ffd166;--danger:#ff7187;--ok:#65ffbf;
 }
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--text);background:
-radial-gradient(circle at 15% 10%,rgba(154,101,255,.18),transparent 30%),
-radial-gradient(circle at 85% 20%,rgba(40,224,255,.13),transparent 28%),
-linear-gradient(145deg,#050a13,#0a1426 50%,#080e1a);min-height:100vh}
-.app{display:grid;grid-template-columns:minmax(355px,510px) 1fr;gap:20px;padding:20px;align-items:start}
-.panel{background:linear-gradient(180deg,rgba(19,36,66,.96),rgba(9,19,37,.98));border:1px solid rgba(119,157,216,.28);border-radius:22px;padding:18px;box-shadow:0 25px 80px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.04)}
-h1{font-size:24px;margin:0 0 5px;letter-spacing:.04em}.kicker{font-size:11px;font-weight:900;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}.help{font-size:12.5px;line-height:1.45;color:var(--muted)}
-.notice{padding:11px 12px;margin:12px 0;border-radius:12px;border:1px solid rgba(255,200,87,.38);background:rgba(255,200,87,.08);font-size:12px;line-height:1.42;color:#ffe5a8}
-h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin:21px 0 9px;color:#dce9ff}
-label{display:block;font-size:11px;font-weight:850;color:#bcd0ef;margin-top:10px;letter-spacing:.03em}
-input,textarea,select,button{font:inherit}input[type=text],input[type=number],input[type=date],input[type=datetime-local],textarea,select{width:100%;margin-top:5px;color:#f8fbff;background:#0a162b;border:1px solid #34517e;border-radius:10px;padding:10px 11px;outline:none}textarea{min-height:68px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(40,224,255,.11)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.row{display:flex;align-items:center;gap:8px;margin-top:11px}.row input[type=checkbox]{width:18px;height:18px;accent-color:var(--cyan)}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}button{border:0;border-radius:11px;padding:10px 12px;font-weight:900;cursor:pointer;transition:.18s transform,.18s filter}.primary{color:#04101b;background:linear-gradient(90deg,var(--cyan),#77ffd7)}.secondary{color:#eef6ff;background:#182b4b;border:1px solid #35517f}.accent{color:#fff;background:linear-gradient(90deg,var(--violet),var(--pink))}.danger{color:#fff;background:#5b2031;border:1px solid #9c4057}button:hover{transform:translateY(-1px);filter:brightness(1.08)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{border:1px solid rgba(87,132,198,.35);background:#0a172b;border-radius:12px;padding:10px}.stat b{display:block;font-size:18px;color:#fff}.stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.log{margin-top:8px;max-height:210px;overflow:auto;border:1px solid #29466e;border-radius:12px;background:#081426}.log-item{padding:9px 10px;border-bottom:1px solid #203858;font-size:11px;line-height:1.35}.log-item:last-child{border-bottom:0}.log-item strong{color:var(--cyan)}
-.stage{display:flex;justify-content:center;align-items:flex-start;padding:10px;min-height:650px}.card-wrap{width:3.375in;position:sticky;top:18px}.card{width:3.375in;height:2.125in;border-radius:.18in;position:relative;overflow:hidden;color:#fff;background:
-radial-gradient(circle at 80% 22%,rgba(40,224,255,.28),transparent 25%),
-radial-gradient(circle at 18% 92%,rgba(255,79,198,.22),transparent 28%),
-linear-gradient(138deg,#091226,#132e58 58%,#1c1648);border:1px solid rgba(126,209,255,.55);box-shadow:0 30px 75px rgba(0,0,0,.5),0 0 40px rgba(40,224,255,.12)}
-.card:before{content:"";position:absolute;inset:-35%;background:repeating-linear-gradient(117deg,transparent 0 23px,rgba(255,255,255,.028) 24px 25px);transform:rotate(4deg);pointer-events:none}.glow{position:absolute;width:1.15in;height:1.15in;right:-.35in;top:-.35in;border-radius:50%;border:.04in solid rgba(40,224,255,.25);box-shadow:0 0 .4in rgba(40,224,255,.24)}
-.card-head{height:.48in;padding:.08in .12in;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid rgba(157,202,255,.24);background:linear-gradient(90deg,rgba(5,14,30,.92),rgba(14,39,75,.58))}.brand{font-size:13px;font-weight:1000;letter-spacing:1.4px}.brand em{font-style:normal;color:var(--cyan)}.sub{font-size:5.5px;color:#b7c9e5;letter-spacing:.65px;margin-top:2px}.chip{width:.35in;height:.27in;border-radius:.06in;background:linear-gradient(135deg,#ffe5a5,#a66f13);position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}.chip:before,.chip:after{content:"";position:absolute;background:rgba(65,38,0,.34)}.chip:before{left:48%;top:0;width:1px;height:100%}.chip:after{left:0;top:48%;height:1px;width:100%}
-.card-body{display:grid;grid-template-columns:1.83in 1.18in;gap:.07in;padding:.075in .10in .03in}.pass-name{font-size:9px;font-weight:950;line-height:1.05;max-height:.28in;overflow:hidden}.experience{margin-top:4px;font-size:5.25px;color:#cce0fa;line-height:1.12;max-height:.26in;overflow:hidden}.balance-label{margin-top:5px;font-size:4.3px;text-transform:uppercase;letter-spacing:.55px;color:#a9bdd9}.balance{font-size:20px;font-weight:1000;line-height:.95;background:linear-gradient(90deg,#fff,var(--cyan),#d0ff96);-webkit-background-clip:text;background-clip:text;color:transparent}.unit{font-size:6px;color:#d7e5f8;margin-left:2px}.serial{margin-top:5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:5px;color:#9db4d6}.rights{margin-top:4px;font-size:4.5px;line-height:1.12;color:#e8f1ff;max-height:.26in;overflow:hidden}.matrix-wrap{display:flex;justify-content:flex-end}.matrix{width:.83in;height:.83in;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:1px;padding:3px;border-radius:.07in;background:rgba(255,255,255,.92);box-shadow:0 0 .18in rgba(40,224,255,.28)}.matrix i{display:block;background:#e7eef7}.matrix i.on{background:#07152b}.verify{text-align:center;margin-top:4px;font-size:4.4px;color:#b8cbe7}.status-pill{margin-top:5px;border:1px solid rgba(183,255,74,.45);background:rgba(183,255,74,.1);color:#dfffad;border-radius:10px;padding:3px 5px;font-size:4.6px;font-weight:900;text-align:center}.footer-band{position:absolute;left:0;right:0;bottom:0;height:.28in;padding:0 .10in;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#09152a,#1f1851 62%,#0e3d52);border-top:1px solid rgba(255,255,255,.12);font-size:4.6px}.foot-strong{font-weight:900;color:#fff}.foot-muted{color:#a9bddc;text-align:right;max-width:1.55in;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.holo{position:absolute;left:.08in;bottom:.32in;width:.36in;height:.13in;border-radius:.08in;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--lime));opacity:.75;filter:saturate(1.4);box-shadow:0 0 10px rgba(154,101,255,.35)}
-.verifier{margin-top:16px;border:1px solid rgba(40,224,255,.28);background:rgba(7,20,40,.75);border-radius:15px;padding:13px}.challenge{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#071222;border:1px dashed #42689f;padding:9px;border-radius:9px;font-size:11px;word-break:break-all;color:#bdeeff}
-@media(max-width:1000px){.app{grid-template-columns:1fr}.card-wrap{position:static}.stage{min-height:auto}}@media(max-width:560px){.grid2,.grid3,.stats{grid-template-columns:1fr}}
-@media print{body{background:#fff}.controls,.no-print{display:none!important}.app{display:block;padding:0}.panel{border:0;box-shadow:none;padding:0;background:#fff}.stage{padding:0;min-height:0}.card-wrap{position:static;width:3.375in}.card{box-shadow:none}@page{size:3.375in 2.125in;margin:0}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:
+ radial-gradient(circle at 12% 0%,rgba(147,108,255,.23),transparent 32%),
+ radial-gradient(circle at 92% 12%,rgba(44,232,255,.16),transparent 28%),
+ radial-gradient(circle at 50% 100%,rgba(255,82,191,.1),transparent 34%),
+ linear-gradient(150deg,#03050a,#07101f 42%,#090d1d);min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.17;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:28px 28px}
+.shell{max-width:1480px;margin:auto;padding:22px}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px;padding:10px 4px}.eyebrow{font-size:11px;font-weight:950;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}h1{font-size:clamp(28px,4vw,54px);line-height:.94;letter-spacing:-.04em;margin:8px 0 10px;max-width:780px}.gradient{background:linear-gradient(90deg,#fff,var(--cyan),#dfc5ff,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:760px;color:var(--muted);line-height:1.55;margin:0}.hero-badge{min-width:205px;padding:12px 14px;border:1px solid rgba(44,232,255,.35);border-radius:18px;background:rgba(11,26,50,.76);box-shadow:0 15px 50px rgba(0,0,0,.25)}.hero-badge b{display:block;color:var(--lime);font-size:18px}.hero-badge span{font-size:11px;color:var(--muted)}
+.app{display:grid;grid-template-columns:minmax(360px,560px) 1fr;gap:20px;align-items:start}.panel{background:linear-gradient(180deg,rgba(17,31,59,.97),rgba(7,17,34,.98));border:1px solid rgba(110,153,214,.28);border-radius:24px;padding:18px;box-shadow:0 28px 90px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.045)}.panel h2{font-size:13px;letter-spacing:.15em;text-transform:uppercase;margin:22px 0 9px;color:#e5efff}.panel h2:first-of-type{margin-top:13px}.hint,.legal{font-size:12px;color:var(--muted);line-height:1.5}.legal{border:1px solid rgba(255,209,102,.33);background:rgba(255,209,102,.07);padding:11px;border-radius:12px;color:#ffe5a4}
+label{display:block;font-size:11px;font-weight:850;color:#bed1ed;margin-top:10px;letter-spacing:.02em}input,textarea,select,button{font:inherit}input[type=text],input[type=number],textarea,select{width:100%;margin-top:5px;border:1px solid #35537c;border-radius:11px;background:#08152a;color:#f7fbff;padding:10px 11px;outline:none}textarea{min-height:75px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(44,232,255,.11)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.range-row{display:grid;grid-template-columns:1fr 54px;gap:9px;align-items:center}.range-row output{border:1px solid #35537c;border-radius:10px;text-align:center;padding:8px;background:#08152a;color:var(--cyan);font-weight:900}input[type=range]{width:100%;accent-color:var(--cyan)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}button{border:0;border-radius:12px;padding:10px 13px;font-weight:900;cursor:pointer;transition:.18s transform,.18s filter}.primary{background:linear-gradient(90deg,var(--cyan),#76ffd8);color:#031019}.accent{background:linear-gradient(90deg,var(--violet),var(--pink));color:#fff}.secondary{background:#172b4d;border:1px solid #375886;color:#f1f7ff}.danger{background:#572135;border:1px solid #9c405c;color:#fff}button:hover{transform:translateY(-1px);filter:brightness(1.07)}button:disabled{opacity:.42;cursor:not-allowed;transform:none}
+.preview{position:sticky;top:16px;display:grid;gap:15px}.experience-stage{position:relative;min-height:670px;border-radius:28px;overflow:hidden;padding:22px;background:
+ radial-gradient(circle at 12% 15%,rgba(44,232,255,.2),transparent 25%),
+ radial-gradient(circle at 82% 20%,rgba(147,108,255,.25),transparent 29%),
+ radial-gradient(circle at 50% 90%,rgba(255,82,191,.14),transparent 32%),
+ linear-gradient(145deg,#071022,#101f3d 55%,#171340);border:1px solid rgba(112,185,255,.42);box-shadow:0 35px 100px rgba(0,0,0,.45)}.experience-stage:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 45deg,transparent,rgba(44,232,255,.05),transparent,rgba(255,82,191,.05),transparent);animation:spin 20s linear infinite;pointer-events:none}@keyframes spin{to{transform:rotate(360deg)}}.content{position:relative;z-index:1}.topline{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.seal{font-size:10px;font-weight:950;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}.session{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:#9bb4d4}.experience-title{font-size:clamp(26px,3.1vw,45px);line-height:.95;letter-spacing:-.045em;margin:18px 0 10px;max-width:750px}.experience-sub{color:#c0d3ed;max-width:790px;line-height:1.5;font-size:14px}.orbit{position:relative;height:270px;margin:18px 0 15px}.orbit-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:128px;height:128px;border-radius:50%;display:grid;place-items:center;text-align:center;padding:13px;background:radial-gradient(circle at 35% 30%,#304f86,#12254a 68%,#08152c);border:2px solid rgba(44,232,255,.64);box-shadow:0 0 45px rgba(44,232,255,.22);font-size:11px;font-weight:900}.ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(141,186,239,.27)}.r1{width:205px;height:205px}.r2{width:295px;height:255px}.node{position:absolute;width:112px;min-height:55px;padding:8px;border-radius:14px;background:rgba(7,18,38,.91);border:1px solid rgba(137,181,238,.38);box-shadow:0 12px 26px rgba(0,0,0,.28);font-size:10px;line-height:1.25}.node b{display:block;color:var(--gold);font-size:9px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}.n1{left:2%;top:16%}.n2{right:2%;top:16%}.n3{left:4%;bottom:9%}.n4{right:4%;bottom:9%}.n5{left:50%;top:0;transform:translateX(-50%)}.n6{left:50%;bottom:0;transform:translateX(-50%)}
+.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.insight{min-height:116px;border:1px solid rgba(101,145,205,.31);border-radius:15px;padding:12px;background:rgba(6,17,35,.76)}.insight b{font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:var(--cyan)}.insight p{font-size:11.5px;line-height:1.42;color:#dce9fa;margin:7px 0 0}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.metric{border-radius:13px;padding:10px;background:rgba(8,22,43,.82);border:1px solid rgba(94,139,201,.32)}.metric strong{display:block;font-size:22px}.metric span{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.paywall{border:1px solid rgba(255,209,102,.4);background:linear-gradient(145deg,rgba(255,209,102,.09),rgba(147,108,255,.08));border-radius:19px;padding:15px}.pay-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.pay-head b{font-size:17px}.price{font-size:25px;font-weight:1000;color:var(--lime)}.paywall p{font-size:12px;line-height:1.45;color:#c8d8ee}.apple-slot{min-height:48px;display:flex;align-items:center;margin-top:10px}apple-pay-button{--apple-pay-button-width:100%;--apple-pay-button-height:46px;--apple-pay-button-border-radius:11px;--apple-pay-button-padding:0;--apple-pay-button-box-sizing:border-box;width:100%}.fallback-pay{width:100%;min-height:46px;border-radius:11px;background:#000;color:#fff}.payment-status{margin-top:9px;font-size:11px;color:var(--muted);min-height:16px}.unlock{border:1px solid rgba(101,255,191,.42);background:rgba(101,255,191,.07);border-radius:15px;padding:12px;color:#d9ffef;font-size:12px;display:none}.unlock.show{display:block}.download-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.locked{position:relative}.locked:after{content:"PAYMENT REQUIRED";position:absolute;inset:0;border-radius:12px;display:grid;place-items:center;background:rgba(4,8,17,.78);backdrop-filter:blur(4px);font-size:10px;letter-spacing:.15em;font-weight:950;color:#fff}
+.artifact-card{width:3.375in;height:2.125in;border-radius:.18in;overflow:hidden;position:relative;padding:.13in;background:radial-gradient(circle at 85% 10%,rgba(44,232,255,.34),transparent 26%),radial-gradient(circle at 10% 95%,rgba(255,82,191,.25),transparent 27%),linear-gradient(138deg,#071126,#153562 60%,#21184d);border:1px solid rgba(124,215,255,.6);box-shadow:0 25px 70px rgba(0,0,0,.43)}.artifact-card:before{content:"";position:absolute;inset:-35%;background:repeating-linear-gradient(115deg,transparent 0 19px,rgba(255,255,255,.035) 20px 21px);transform:rotate(8deg)}.artifact-content{position:relative;z-index:1}.card-brand{font-size:12px;font-weight:1000;letter-spacing:.14em}.card-brand em{font-style:normal;color:var(--cyan)}.card-title{font-size:14px;font-weight:1000;line-height:1;margin-top:.12in;max-width:2.2in}.card-statement{font-size:5.2px;line-height:1.25;color:#d7e5fa;margin-top:.07in;max-width:2.25in;height:.42in;overflow:hidden}.card-score{font-size:25px;font-weight:1000;color:var(--lime);margin-top:.03in}.card-score small{font-size:6px;color:#c4d6ef}.mini-matrix{position:absolute;right:.12in;top:.48in;width:.78in;height:.78in;display:grid;grid-template-columns:repeat(9,1fr);gap:1px;background:white;padding:3px;border-radius:.06in}.mini-matrix i{background:#e6edf7}.mini-matrix i.on{background:#07152d}.card-foot{position:absolute;left:.13in;right:.13in;bottom:.11in;display:flex;justify-content:space-between;font-size:4.7px;color:#b8cbe5}.card-foot b{color:#fff}.holo{position:absolute;right:.14in;bottom:.24in;width:.6in;height:.09in;border-radius:9px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--lime));box-shadow:0 0 13px rgba(147,108,255,.45)}
+.code-note{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;line-height:1.45;background:#061122;border:1px solid #31517d;border-radius:12px;padding:10px;color:#b5cae7;white-space:pre-wrap}.hidden{display:none!important}
+@media(max-width:1050px){.app{grid-template-columns:1fr}.preview{position:static}}@media(max-width:650px){.grid2,.grid3,.insight-grid,.metrics{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.orbit{height:440px}.node{width:42%}.n1{left:0;top:8%}.n2{right:0;top:8%}.n3{left:0;bottom:8%}.n4{right:0;bottom:8%}.n5{top:23%}.n6{bottom:23%}.r2{width:270px;height:330px}.r1{width:190px;height:240px}}
+@media print{body{background:white}.no-print,.controls,.hero{display:none!important}.shell,.app{padding:0;display:block}.preview{position:static}.experience-stage,.paywall,.unlock{display:none!important}.panel{border:0;background:white;padding:0;box-shadow:none}.artifact-card{box-shadow:none}@page{size:3.375in 2.125in;margin:0}}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
+<div class="shell">
+<header class="hero no-print">
+ <div><div class="eyebrow">Guided personal meaning system</div><h1>Turn a situation into an <span class="gradient">enlightening experience.</span></h1><p>Enter a real or fictional situation, compare three options, describe the outcome you seek, and receive a dynamic reflection map, option signal, next-step prompt, and downloadable Insight Artifact.</p></div>
+ <div class="hero-badge"><b>Private reflective experience</b><span>Not diagnosis, professional advice, identity verification, or proof that an external event occurred.</span></div>
+</header>
 <div class="app">
-<section class="panel controls">
-  <div class="kicker">Private closed-loop service instrument</div>
-  <h1>LUMEN Experience Credit Pass</h1>
-  <div class="help">Create a prepaid or promotional pass redeemable only for your own listed experiences, sessions, events, digital access, workshops, rentals, or other defined services.</div>
-  <div class="notice"><b>Use model:</b> sell access to a defined service, not “currency.” Credits are contractual redemption units inside your own program. This template is not legal tender, a bank account, an investment, government ID, or proof of regulated certification. Consumer, gift-card, tax, privacy, marketing, and refund rules may apply where you sell it.</div>
+<section class="panel controls no-print">
+ <div class="eyebrow">Experience builder</div>
+ <h2>1. Your understood situation</h2>
+ <label>Experience title<input id="experienceTitle" value="The Turning Point"></label>
+ <label>Situation<textarea id="situation">I have an opportunity that could expand my work, but it requires time, money, and a commitment before every detail is known.</textarea></label>
+ <div class="grid2"><label>Who or what is affected?<input id="stakeholders" value="Me, collaborators, customers"></label><label>Main constraint<input id="constraint" value="Limited time and uncertain demand"></label></div>
+ <label>Evidence or facts already understood<textarea id="evidence">There is early interest, I have relevant skills, and a smaller pilot could be tested before a full commitment.</textarea></label>
 
-  <h2>Pass identity</h2>
-  <label>Pass name<input id="passName" value="NEON NIGHT EXPERIENCE PASS"></label>
-  <label>Experience or service offered<textarea id="experience">Admission to one hosted immersive puzzle-night experience, including interactive stations, a digital keepsake, and one bonus challenge.</textarea></label>
-  <div class="grid2"><label>Issuer / studio<input id="issuer" value="Lumen Works Studio"></label><label>Program name<input id="program" value="LUMEN LOOP"></label></div>
-  <div class="grid2"><label>Pass serial<input id="serial" value="LXP-2026-0001"></label><label>Issue date<input id="issueDate" type="date"></label></div>
-  <div class="grid2"><label>Expiry / validity text<input id="validity" value="Valid for 12 months"></label><label>Venue / channel<input id="venue" value="Hosted venue or online portal"></label></div>
+ <h2>2. Three options</h2>
+ <label>Option A<input id="optionA" value="Commit fully now"></label>
+ <label>Option B<input id="optionB" value="Run a small reversible pilot"></label>
+ <label>Option C<input id="optionC" value="Wait and gather more evidence"></label>
+ <div class="grid3"><label>A confidence (0–10)<input id="confA" type="number" min="0" max="10" value="5"></label><label>B confidence (0–10)<input id="confB" type="number" min="0" max="10" value="8"></label><label>C confidence (0–10)<input id="confC" type="number" min="0" max="10" value="6"></label></div>
 
-  <h2>Credit and commercial utility</h2>
-  <div class="grid3"><label>Starting credits<input id="starting" type="number" min="0" step="0.01" value="100"></label><label>Unit name<input id="unitName" value="LUX"></label><label>Sale price (display)<input id="salePrice" value="$45 CAD"></label></div>
-  <label>Redemption right<textarea id="rights">100 LUX may be redeemed for one standard Neon Night admission. Optional add-ons may use smaller LUX amounts according to the current issuer menu.</textarea></label>
-  <label>Usage location / method<textarea id="usage">Present the pass serial and verifier response at the issuer’s event desk or online booking portal. Redemption is completed only by the issuer.</textarea></label>
-  <div class="grid2"><label>Minimum redemption<input id="minimum" type="number" min="0" step="0.01" value="10"></label><label>Maximum transfers<input id="maxTransfers" type="number" min="0" step="1" value="3"></label></div>
-  <div class="row"><input id="transferable" type="checkbox" checked><label for="transferable" style="margin:0">Allow private transfer to another holder</label></div>
-  <div class="row"><input id="cashValue" type="checkbox"><label for="cashValue" style="margin:0">Issuer explicitly promises cash redemption (leave off unless legally reviewed)</label></div>
+ <h2>3. Desired outcome and interpretation</h2>
+ <label>Outcome you want<textarea id="desiredOutcome">Learn whether the idea creates genuine value without exposing the whole project to avoidable risk.</textarea></label>
+ <label>What would make the outcome meaningful?<textarea id="meaning">The choice should preserve future options, produce real evidence, and create a useful experience for other people.</textarea></label>
+ <label>Most important hidden influence<input id="hiddenInfluence" value="Whether early users return or recommend the experience"></label>
 
-  <h2>Interactive use</h2>
-  <div class="grid2"><label>Redeem amount<input id="redeemAmount" type="number" min="0" step="0.01" value="10"></label><label>Redemption note<input id="redeemNote" value="Bonus challenge access"></label></div>
-  <div class="actions"><button class="primary" id="redeemBtn">Redeem credits</button><button class="secondary" id="undoBtn">Undo last</button><button class="accent" id="refreshChallenge">New verifier challenge</button></div>
-  <div class="stats"><div class="stat"><b id="balanceStat">100</b><span>Current balance</span></div><div class="stat"><b id="usedStat">0</b><span>Credits used</span></div><div class="stat"><b id="transferStat">0 / 3</b><span>Transfers</span></div></div>
+ <h2>4. Experience tuning</h2>
+ <label>Clarity<div class="range-row"><input id="clarity" type="range" min="0" max="10" value="7"><output id="clarityOut">7</output></div></label>
+ <label>Uncertainty<div class="range-row"><input id="uncertainty" type="range" min="0" max="10" value="6"><output id="uncertaintyOut">6</output></div></label>
+ <label>Reversibility<div class="range-row"><input id="reversibility" type="range" min="0" max="10" value="8"><output id="reversibilityOut">8</output></div></label>
+ <label>Potential benefit<div class="range-row"><input id="benefit" type="range" min="0" max="10" value="8"><output id="benefitOut">8</output></div></label>
+ <label>Potential burden<div class="range-row"><input id="burden" type="range" min="0" max="10" value="5"><output id="burdenOut">5</output></div></label>
+ <label>Time sensitivity<div class="range-row"><input id="timeSensitivity" type="range" min="0" max="10" value="6"><output id="timeOut">6</output></div></label>
+ <div class="actions"><button class="primary" id="generateBtn">Generate experience</button><button class="secondary" id="randomPromptBtn">Inspire a new prompt</button><button class="secondary" id="resetBtn">Reset</button></div>
 
-  <div class="verifier">
-    <div class="kicker">Two-party verifier</div>
-    <div class="help">The issuer reads the challenge aloud. The holder enters it into the verifier field. A matching response confirms that both parties are viewing the same pass data; it does not prove identity.</div>
-    <div class="challenge" id="challengeText">—</div>
-    <div class="grid2"><label>Verifier input<input id="challengeInput" placeholder="Enter challenge"></label><label>Response<input id="challengeResponse" readonly></label></div>
-    <div class="actions"><button class="secondary" id="verifyBtn">Verify pass response</button></div>
-  </div>
+ <h2>5. Product and payment settings</h2>
+ <div class="grid2"><label>Seller / studio<input id="merchantName" value="Lumen Works Studio"></label><label>Artifact price<input id="price" type="number" min="0.50" step="0.01" value="9.99"></label></div>
+ <div class="grid2"><label>Currency<select id="currency"><option value="CAD" selected>CAD</option><option value="USD">USD</option><option value="GBP">GBP</option><option value="EUR">EUR</option></select></label><label>Country code<input id="countryCode" maxlength="2" value="CA"></label></div>
+ <label>Apple merchant identifier<input id="merchantId" value="merchant.com.yourdomain.lumen"></label>
+ <div class="legal"><b>Production requirement:</b> Apple Pay needs an Apple Developer merchant ID, certificates, a verified HTTPS domain, and server-side merchant validation and payment processing. The browser must not mark a purchase paid until your server confirms the processor accepted it.</div>
+ <details style="margin-top:10px"><summary class="hint">Server endpoint contract</summary><div class="code-note">POST /api/apple-pay/validate-merchant
+{ validationURL, initiativeContext }
+→ Apple merchant session object
 
-  <h2>Transfer</h2>
-  <div class="grid2"><label>From holder reference<input id="fromHolder" value="Original purchaser"></label><label>To holder reference<input id="toHolder" placeholder="Recipient nickname or reference"></label></div>
-  <label>Transfer note<input id="transferNote" value="Private transfer of remaining redemption rights"></label>
-  <div class="actions"><button class="secondary" id="transferBtn">Record transfer</button></div>
-
-  <h2>Terms shown with pass</h2>
-  <label>Program terms<textarea id="terms">Closed-loop service credits. Redeemable only with the named issuer for listed services, subject to availability and booking rules. Not legal tender, not an investment, and not government identification. Lost-pass replacement and refund rights follow the issuer’s published terms and applicable law.</textarea></label>
-
-  <h2>Activity ledger</h2>
-  <div class="log" id="ledger"></div>
-  <div class="actions"><button class="primary" id="saveBtn">Save pass locally</button><button class="secondary" id="newBtn">New pass</button><button class="secondary" id="exportJson">Export pass file</button><button class="secondary" id="importBtn">Import pass</button><input id="importFile" type="file" accept="application/json" hidden></div>
-  <div class="actions"><button class="accent" id="pngBtn">Export card PNG</button><button class="secondary" id="printBtn">Print wallet card</button><button class="secondary" id="htmlBtn">Export editable HTML</button></div>
-  <div class="help" id="status"></div>
+POST /api/apple-pay/process-payment
+{ paymentToken, amount, currency, productId, experienceHash }
+→ { ok:true, orderId, downloadToken, downloadUrl? }</div></details>
 </section>
 
-<section class="panel stage">
-  <div class="card-wrap">
-    <div class="card" id="card">
-      <div class="glow"></div>
-      <div class="card-head"><div><div class="brand"><em>LUMEN</em> PASS</div><div class="sub" id="vProgram">LUMEN LOOP • CLOSED-LOOP EXPERIENCE CREDIT</div></div><div class="chip"></div></div>
-      <div class="card-body">
-        <div>
-          <div class="pass-name" id="vPassName">NEON NIGHT EXPERIENCE PASS</div>
-          <div class="experience" id="vExperience">Admission to one hosted immersive experience.</div>
-          <div class="balance-label">Available utility</div>
-          <div><span class="balance" id="vBalance">100</span><span class="unit" id="vUnit">LUX</span></div>
-          <div class="serial" id="vSerial">LXP-2026-0001</div>
-          <div class="rights" id="vRights">Redeemable for issuer services under the published program terms.</div>
-        </div>
-        <div>
-          <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
-          <div class="verify" id="vVerifier">VERIFY 000000</div>
-          <div class="status-pill" id="vStatus">ACTIVE • PRIVATE SERVICE PASS</div>
-        </div>
-      </div>
-      <div class="holo"></div>
-      <div class="footer-band"><div><span class="foot-strong" id="vIssuer">Lumen Works Studio</span><br><span id="vPrice">ISSUED FOR $45 CAD</span></div><div class="foot-muted" id="vTerms">Not legal tender • issuer redemption only</div></div>
-    </div>
+<section class="preview">
+ <div class="panel experience-stage" id="experienceStage">
+  <div class="content">
+   <div class="topline"><div class="seal">LUMEN reflection field</div><div class="session" id="sessionId">SESSION —</div></div>
+   <div class="experience-title" id="vTitle">The Turning Point</div>
+   <div class="experience-sub" id="vSituation">Your situation will appear here.</div>
+   <div class="orbit">
+    <div class="ring r2"></div><div class="ring r1"></div>
+    <div class="orbit-center" id="centerOutcome">DESIRED OUTCOME</div>
+    <div class="node n1"><b>Situation</b><span id="nodeSituation">—</span></div>
+    <div class="node n2"><b>Constraint</b><span id="nodeConstraint">—</span></div>
+    <div class="node n3"><b>Option signal</b><span id="nodeOption">—</span></div>
+    <div class="node n4"><b>Hidden influence</b><span id="nodeHidden">—</span></div>
+    <div class="node n5"><b>Evidence</b><span id="nodeEvidence">—</span></div>
+    <div class="node n6"><b>Next experiment</b><span id="nodeExperiment">—</span></div>
+   </div>
+   <div class="insight-grid">
+    <div class="insight"><b>Illumination</b><p id="illumination">Generate the experience to receive a reflection.</p></div>
+    <div class="insight"><b>Balanced interpretation</b><p id="interpretation">The map describes inputs and possible relationships, not objective truth.</p></div>
+    <div class="insight"><b>Question to carry</b><p id="question">What information would change your preferred option?</p></div>
+   </div>
+   <div class="metrics"><div class="metric"><strong id="mSignal">0</strong><span>Option signal</span></div><div class="metric"><strong id="mReadiness">0</strong><span>Readiness</span></div><div class="metric"><strong id="mLearning">0</strong><span>Learning value</span></div><div class="metric"><strong id="mBalance">0</strong><span>Balance</span></div></div>
   </div>
+ </div>
+
+ <div class="panel paywall no-print">
+  <div class="pay-head"><div><div class="eyebrow">Unlock the keepsake</div><b>Download your personalized Insight Artifact</b></div><div class="price" id="priceDisplay">$9.99 CAD</div></div>
+  <p>The free experience remains visible. Payment unlocks the generated wallet card, printable reflection report, JSON record, and standalone HTML keepsake for this session.</p>
+  <div class="apple-slot" id="appleSlot"><button class="fallback-pay" id="appleFallback">Apple Pay requires Safari, HTTPS, and merchant setup</button></div>
+  <div class="payment-status" id="paymentStatus">Checking Apple Pay availability…</div>
+  <div class="hint">A local demo unlock appears only when this page is opened with <code>?demo=1</code>. It must never be used as proof of payment in production.</div>
+  <div class="actions hidden" id="demoArea"><button class="secondary" id="demoUnlock">Demo unlock</button></div>
+ </div>
+
+ <div class="panel unlock" id="unlockPanel">
+  <b>Artifact unlocked</b><div id="orderLine" class="hint">Payment confirmed.</div>
+  <div class="download-actions"><button class="primary" id="reportBtn">Download report</button><button class="secondary" id="cardPngBtn">Download card PNG</button><button class="secondary" id="jsonBtn">Download JSON</button><button class="secondary" id="htmlBtn">Download keepsake HTML</button><button class="secondary" id="printBtn">Print card</button></div>
+ </div>
+
+ <div class="panel" style="display:flex;justify-content:center">
+  <div class="artifact-card locked" id="artifactCard">
+   <div class="artifact-content"><div class="card-brand"><em>LUMEN</em> INSIGHT ARTIFACT</div><div class="card-title" id="cardTitle">THE TURNING POINT</div><div class="card-statement" id="cardStatement">A personalized reflective artifact generated from the holder's supplied situation, options, and outcome.</div><div class="card-score" id="cardScore">00 <small>INSIGHT SIGNAL</small></div><div class="mini-matrix" id="miniMatrix"></div><div class="holo"></div><div class="card-foot"><div><b id="cardMerchant">Lumen Works Studio</b><br><span id="cardSession">SESSION —</span></div><div style="text-align:right">Private reflective keepsake<br>Not ID • not proof of external facts</div></div></div>
+  </div>
+ </div>
 </section>
+</div>
 </div>
 <script>
 const $=id=>document.getElementById(id);
-const fieldIds=['passName','experience','issuer','program','serial','issueDate','validity','venue','starting','unitName','salePrice','rights','usage','minimum','maxTransfers','redeemAmount','redeemNote','fromHolder','toHolder','transferNote','terms'];
-let state={balance:100,ledger:[],transfers:0,challenge:'',digest:'',createdAt:new Date().toISOString()};
-function cleanNum(v,fallback=0){const n=Number(v);return Number.isFinite(n)?n:fallback}
-function fmt(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:2})}
-function randomSerial(){return 'LXP-'+new Date().getFullYear()+'-'+Math.random().toString(36).slice(2,8).toUpperCase()}
-function snapshot(){const data={};fieldIds.forEach(id=>data[id]=$(id).value);data.transferable=$('transferable').checked;data.cashValue=$('cashValue').checked;return{format:'LumenExperienceCreditPass',version:1,data,state:{...state},updatedAt:new Date().toISOString()}}
-async function hashText(text){if(window.crypto?.subtle){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}let h=2166136261;for(let i=0;i<text.length;i++)h=Math.imul(h^text.charCodeAt(i),16777619);return(h>>>0).toString(16).padStart(8,'0').repeat(8)}
-async function refreshDigest(){const core=JSON.stringify({serial:$('serial').value,issuer:$('issuer').value,balance:state.balance,ledger:state.ledger,transfers:state.transfers,rights:$('rights').value,terms:$('terms').value});state.digest=await hashText(core);drawMatrix(state.digest);$('vVerifier').textContent='VERIFY '+state.digest.slice(0,6).toUpperCase();}
-function drawMatrix(seed){const box=$('matrix');box.innerHTML='';for(let i=0;i<121;i++){const e=document.createElement('i');const c=parseInt(seed[(i*7)%seed.length]||'0',16);if(((c+i*3)%5)<2||i<3||i%11===0)e.className='on';box.appendChild(e)}}
-function ledgerItem(type,amount,note){return{id:crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random(),type,amount,note,at:new Date().toISOString(),balance:state.balance}}
-function renderLedger(){const box=$('ledger');if(!state.ledger.length){box.innerHTML='<div class="log-item help">No activity yet. The first redemption or transfer will appear here.</div>';return}box.innerHTML=[...state.ledger].reverse().map(x=>`<div class="log-item"><strong>${x.type}</strong> • ${new Date(x.at).toLocaleString()}<br>${x.amount!==null&&x.amount!==undefined?fmt(x.amount)+' '+escapeHtml($('unitName').value)+' • ':''}${escapeHtml(x.note||'')}<br>Balance after: ${fmt(x.balance)} ${escapeHtml($('unitName').value)}</div>`).join('')}
-function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c])}
-async function update(){
-  $('vPassName').textContent=($('passName').value||'EXPERIENCE CREDIT PASS').toUpperCase();$('vExperience').textContent=$('experience').value||'Private issuer service access';
-  $('vBalance').textContent=fmt(state.balance);$('vUnit').textContent=($('unitName').value||'CREDITS').toUpperCase();$('vSerial').textContent=$('serial').value||'—';$('vRights').textContent=$('rights').value||'Redeemable under issuer terms.';
-  $('vIssuer').textContent=$('issuer').value||'Private issuer';$('vPrice').textContent='ISSUED FOR '+($('salePrice').value||'PRIVATE CONSIDERATION');$('vProgram').textContent=(($('program').value||'PRIVATE PROGRAM')+' • CLOSED-LOOP EXPERIENCE CREDIT').toUpperCase();
-  $('vTerms').textContent=$('cashValue').checked?'Issuer cash-redemption promise applies • review terms':'Not legal tender • issuer redemption only';
-  const max=Math.max(0,Math.floor(cleanNum($('maxTransfers').value,0)));$('balanceStat').textContent=fmt(state.balance);$('usedStat').textContent=fmt(Math.max(0,cleanNum($('starting').value,0)-state.balance));$('transferStat').textContent=state.transfers+' / '+max;
-  $('vStatus').textContent=state.balance>0?'ACTIVE • PRIVATE SERVICE PASS':'REDEEMED • ZERO BALANCE';renderLedger();await refreshDigest();
-}
-function newChallenge(){const words=['NOVA','PULSE','ORBIT','SPARK','ECHO','FLUX','PRISM','AURA'];state.challenge=words[Math.floor(Math.random()*words.length)]+'-'+Math.floor(1000+Math.random()*9000);$('challengeText').textContent=state.challenge;$('challengeInput').value='';$('challengeResponse').value='';}
-$('refreshChallenge').onclick=newChallenge;
-$('verifyBtn').onclick=async()=>{const input=$('challengeInput').value.trim().toUpperCase();if(input!==state.challenge.toUpperCase()){ $('challengeResponse').value='NO MATCH';return }const response=(await hashText(input+'|'+$('serial').value+'|'+state.digest)).slice(0,10).toUpperCase();$('challengeResponse').value=response;};
-$('redeemBtn').onclick=async()=>{const amount=cleanNum($('redeemAmount').value,0),min=cleanNum($('minimum').value,0);if(amount<=0)return alert('Enter a positive redemption amount.');if(amount<min)return alert('Amount is below the minimum redemption.');if(amount>state.balance)return alert('Insufficient pass balance.');state.balance=Math.round((state.balance-amount)*100)/100;state.ledger.push(ledgerItem('REDEMPTION',amount,$('redeemNote').value||'Issuer service redemption'));await update();};
-$('undoBtn').onclick=async()=>{const last=state.ledger.pop();if(!last)return;if(last.type==='REDEMPTION')state.balance=Math.round((state.balance+last.amount)*100)/100;if(last.type==='TRANSFER')state.transfers=Math.max(0,state.transfers-1);await update();};
-$('transferBtn').onclick=async()=>{if(!$('transferable').checked)return alert('Transfers are disabled for this pass.');const max=Math.max(0,Math.floor(cleanNum($('maxTransfers').value,0)));if(state.transfers>=max)return alert('Maximum transfer count reached.');if(!$('toHolder').value.trim())return alert('Enter a recipient reference.');state.transfers++;state.ledger.push(ledgerItem('TRANSFER',null,`${$('fromHolder').value||'Holder'} → ${$('toHolder').value}. ${$('transferNote').value||''}`));$('fromHolder').value=$('toHolder').value;$('toHolder').value='';await update();};
-fieldIds.forEach(id=>{$(id).addEventListener('input',async()=>{if(id==='starting'&&state.ledger.length===0)state.balance=Math.max(0,cleanNum($('starting').value,0));await update()});$(id).addEventListener('change',update)});$('transferable').onchange=update;$('cashValue').onchange=update;
-function download(name,blob){const a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),800)}
-$('saveBtn').onclick=()=>{localStorage.setItem('lumen-pass-'+$('serial').value,JSON.stringify(snapshot()));$('status').textContent='Saved locally in this browser.'};
-$('newBtn').onclick=async()=>{if(!confirm('Start a new pass?'))return;state={balance:100,ledger:[],transfers:0,challenge:'',digest:'',createdAt:new Date().toISOString()};$('serial').value=randomSerial();$('starting').value='100';newChallenge();await update();};
-$('exportJson').onclick=()=>download(($('serial').value||'lumen-pass')+'.json',new Blob([JSON.stringify(snapshot(),null,2)],{type:'application/json'}));
-$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=()=>{const f=$('importFile').files?.[0];if(!f)return;const r=new FileReader();r.onload=async()=>{try{const p=JSON.parse(r.result);Object.entries(p.data||{}).forEach(([k,v])=>{if($(k))$(k).value=v});$('transferable').checked=!!p.data?.transferable;$('cashValue').checked=!!p.data?.cashValue;state={...state,...p.state};newChallenge();await update()}catch(e){alert('Invalid pass file.')}};r.readAsText(f)};
-$('printBtn').onclick=()=>window.print();
-$('pngBtn').onclick=async()=>{try{$('status').textContent='Rendering card…';if(typeof html2canvas!=='function')throw new Error();const c=await html2canvas($('card'),{backgroundColor:null,scale:3,useCORS:true});c.toBlob(b=>{download(($('serial').value||'lumen-pass')+'.png',b);$('status').textContent='PNG exported.'},'image/png')}catch(e){$('status').textContent='PNG export unavailable. Reload while online and try again.'}};
-$('htmlBtn').onclick=()=>{const clone=document.documentElement.cloneNode(true);clone.querySelector('body').insertAdjacentHTML('beforeend',`<script>window.addEventListener('DOMContentLoaded',async()=>{const p=${JSON.stringify(snapshot())};Object.entries(p.data||{}).forEach(([k,v])=>{if(document.getElementById(k))document.getElementById(k).value=v});document.getElementById('transferable').checked=!!p.data.transferable;document.getElementById('cashValue').checked=!!p.data.cashValue;state={...state,...p.state};newChallenge();await update()});<\/script>`);download('editable-lumen-experience-pass.html',new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html'}))};
-(function init(){const d=new Date();$('issueDate').value=d.toISOString().slice(0,10);state.balance=cleanNum($('starting').value,100);newChallenge();update()})();
+const inputIds=['experienceTitle','situation','stakeholders','constraint','evidence','optionA','optionB','optionC','confA','confB','confC','desiredOutcome','meaning','hiddenInfluence','clarity','uncertainty','reversibility','benefit','burden','timeSensitivity','merchantName','price','currency','countryCode','merchantId'];
+let artifact={sessionId:'',createdAt:'',preferred:'',scores:{},texts:{},hash:''};
+let access={unlocked:false,orderId:'',downloadToken:''};
+const promptSets=[
+ ['A collaboration opportunity arrives before roles are clear.','Define a narrow trial','Agree to the full project','Decline until conditions improve'],
+ ['A community event could create connection but resources are limited.','Run one compact event','Seek partners first','Postpone the concept'],
+ ['A digital service has early interest but no proven repeat use.','Sell a pilot cohort','Build the complete platform','Interview users only'],
+ ['A personal project is meaningful but competes with existing obligations.','Protect a weekly experiment','Pause other work and commit','Keep it informal for now']
+];
+function val(id){return $(id).value.trim()}function num(id){const n=Number($(id).value);return Number.isFinite(n)?n:0}function clamp(n,a=0,b=100){return Math.max(a,Math.min(b,n))}function short(s,n=90){s=String(s||'').trim();return s.length>n?s.slice(0,n-1)+'…':s}function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c])}
+async function hashText(t){if(crypto?.subtle){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}let h=2166136261;for(let i=0;i<t.length;i++)h=Math.imul(h^t.charCodeAt(i),16777619);return(h>>>0).toString(16).padStart(8,'0').repeat(8)}
+function dl(name,blob){const a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function optionScores(){const c=[num('confA'),num('confB'),num('confC')];const base=(num('clarity')*1.1+num('reversibility')*1.35+num('benefit')*1.2-num('burden')*.85-num('uncertainty')*.45+num('timeSensitivity')*.25);return [clamp(Math.round(c[0]*6+base*.34)),clamp(Math.round(c[1]*6+base*.42+num('reversibility')*1.2)),clamp(Math.round(c[2]*6+base*.29+num('uncertainty')*.5-num('timeSensitivity')*.4))]}
+function classifyPreferred(scores){const opts=[val('optionA'),val('optionB'),val('optionC')];let i=scores.indexOf(Math.max(...scores));return{index:i,name:opts[i]||['Option A','Option B','Option C'][i],score:scores[i]}}
+function buildTexts(pref,scores){const uncertainty=num('uncertainty'),rev=num('reversibility'),burden=num('burden'),clarity=num('clarity');let tone=uncertainty>=7?'The central opportunity is not certainty; it is designing a move that produces trustworthy evidence.':clarity>=7?'The inputs point toward a sufficiently clear direction, provided the choice remains connected to observable evidence.':'The situation may benefit from slowing interpretation down and separating facts from assumptions.';let experiment=rev>=7?`Translate “${pref.name}” into the smallest reversible action that can be completed and reviewed.`:`Before committing to “${pref.name},” define a checkpoint, exit condition, and cost ceiling.`;let balanced=burden>=7?'Potential benefit is present, but burden is high enough that capacity and limits should be treated as first-class evidence.':'The preferred option is a reflective signal created from your inputs, not a prediction or instruction.';let q=uncertainty>=6?'Which unknown can be converted into evidence within the next seven days?':'What result would make you continue, change direction, or stop?';return{illumination:`${tone} Your strongest current signal is “${pref.name}.”`,interpretation:balanced,question:q,experiment};}
+async function generate(){const scores=optionScores(),pref=classifyPreferred(scores);const readiness=clamp(Math.round(num('clarity')*6+num('reversibility')*3+num('timeSensitivity')*2-num('uncertainty')*2-num('burden')));const learning=clamp(Math.round(num('uncertainty')*5+num('reversibility')*3+num('clarity')*2));const balance=clamp(Math.round(100-Math.abs(num('benefit')-num('burden'))*6-Math.abs(num('clarity')-num('uncertainty'))*4));const texts=buildTexts(pref,scores);const raw={inputs:Object.fromEntries(inputIds.map(id=>[id,$(id).value])),scores,readiness,learning,balance,texts,at:new Date().toISOString()};const hash=await hashText(JSON.stringify(raw));artifact={sessionId:'LUX-'+hash.slice(0,10).toUpperCase(),createdAt:raw.at,preferred:pref.name,scores:{options:scores,signal:pref.score,readiness,learning,balance},texts,hash};$('sessionId').textContent=artifact.sessionId;$('vTitle').textContent=val('experienceTitle')||'Personal Insight Experience';$('vSituation').textContent=val('situation')||'No situation entered.';$('centerOutcome').textContent=short(val('desiredOutcome')||'Desired outcome',55);$('nodeSituation').textContent=short(val('situation'),80);$('nodeConstraint').textContent=short(val('constraint'),80);$('nodeOption').textContent=`${pref.name} (${pref.score}/100)`;$('nodeHidden').textContent=short(val('hiddenInfluence'),80);$('nodeEvidence').textContent=short(val('evidence'),80);$('nodeExperiment').textContent=short(texts.experiment,85);$('illumination').textContent=texts.illumination;$('interpretation').textContent=texts.interpretation;$('question').textContent=texts.question;$('mSignal').textContent=pref.score;$('mReadiness').textContent=readiness;$('mLearning').textContent=learning;$('mBalance').textContent=balance;$('cardTitle').textContent=(val('experienceTitle')||'Insight Artifact').toUpperCase();$('cardStatement').textContent=short(texts.illumination+' '+texts.question,180);$('cardScore').innerHTML=`${pref.score} <small>INSIGHT SIGNAL</small>`;$('cardMerchant').textContent=val('merchantName')||'Private studio';$('cardSession').textContent=artifact.sessionId;drawMatrix(hash);updatePrice();access.unlocked=false;$('unlockPanel').classList.remove('show');$('artifactCard').classList.add('locked');$('paymentStatus').textContent='Experience refreshed. Payment is required for downloads.';}
+function drawMatrix(seed){const box=$('miniMatrix');box.innerHTML='';for(let i=0;i<81;i++){const e=document.createElement('i'),x=parseInt(seed[(i*5)%seed.length]||'0',16);if((x+i*3)%5<2||i<3||i%9===0)e.className='on';box.appendChild(e)}}
+function updatePrice(){$('priceDisplay').textContent=new Intl.NumberFormat(undefined,{style:'currency',currency:val('currency')||'CAD'}).format(Math.max(.5,num('price')))+' '+(val('currency')||'CAD')}
+function unlock(orderId,token){access={unlocked:true,orderId:orderId||'DEMO-'+Date.now(),downloadToken:token||'demo'};$('artifactCard').classList.remove('locked');$('unlockPanel').classList.add('show');$('orderLine').textContent=`Confirmed order: ${access.orderId}. Downloads are enabled for this browser session.`;$('paymentStatus').textContent='Payment confirmed. Artifact unlocked.';}
+function productPayload(){return{productId:'lumen-personalized-insight-artifact',amount:Math.max(.5,num('price')).toFixed(2),currency:(val('currency')||'CAD').toUpperCase(),experienceHash:artifact.hash,sessionId:artifact.sessionId}}
+async function beginApplePay(){if(!artifact.hash)await generate();if(!window.ApplePaySession)return $('paymentStatus').textContent='Apple Pay is unavailable in this browser.';const version=ApplePaySession.supportsVersion(14)?14:ApplePaySession.supportsVersion(10)?10:3;const total={label:val('merchantName')||'LUMEN Insight Artifact',amount:Math.max(.5,num('price')).toFixed(2),type:'final'};const request={countryCode:(val('countryCode')||'CA').toUpperCase(),currencyCode:(val('currency')||'CAD').toUpperCase(),supportedNetworks:['visa','masterCard','amex','discover'],merchantCapabilities:['supports3DS'],total};let session;try{session=new ApplePaySession(version,request)}catch(e){$('paymentStatus').textContent='Could not create Apple Pay session: '+e.message;return}
+ session.onvalidatemerchant=async ev=>{try{$('paymentStatus').textContent='Validating merchant…';const r=await fetch('/api/apple-pay/validate-merchant',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({validationURL:ev.validationURL,initiativeContext:location.hostname,merchantIdentifier:val('merchantId')})});if(!r.ok)throw new Error(await r.text()||'Merchant validation failed');session.completeMerchantValidation(await r.json())}catch(e){$('paymentStatus').textContent='Merchant validation failed. Server setup is required.';session.abort()}};
+ session.onpaymentauthorized=async ev=>{try{$('paymentStatus').textContent='Confirming payment…';const r=await fetch('/api/apple-pay/process-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...productPayload(),paymentToken:ev.payment.token})});const out=await r.json();if(!r.ok||!out.ok)throw new Error(out.message||'Payment declined');session.completePayment(ApplePaySession.STATUS_SUCCESS);unlock(out.orderId,out.downloadToken)}catch(e){session.completePayment(ApplePaySession.STATUS_FAILURE);$('paymentStatus').textContent='Payment was not confirmed: '+e.message}};
+ session.oncancel=()=>{$('paymentStatus').textContent='Payment cancelled.'};session.begin();}
+function setupApplePay(){const slot=$('appleSlot');if(window.ApplePaySession&&ApplePaySession.canMakePayments()){slot.innerHTML='<apple-pay-button id="applePayButton" buttonstyle="black" type="buy" locale="en-CA"></apple-pay-button>';$('applePayButton').addEventListener('click',beginApplePay);$('paymentStatus').textContent='Apple Pay is available. Merchant server setup must be active.'}else{$('paymentStatus').textContent='Apple Pay is not available here. Open the hosted HTTPS page in a supported Safari environment.'}}
+function requireUnlock(){if(!access.unlocked){alert('Complete payment to unlock downloads.');return false}return true}
+function snapshot(){return{format:'LumenPersonalizedInsightArtifact',version:1,artifact,inputs:Object.fromEntries(inputIds.map(id=>[id,$(id).value])),purchase:{orderId:access.orderId,confirmed:access.unlocked},notice:'Private reflective experience. Not professional advice, government ID, certification, or proof of external facts.'}}
+function reportHtml(){const s=snapshot();return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(val('experienceTitle'))} — LUMEN Insight Report</title><style>body{font:16px system-ui;max-width:900px;margin:40px auto;padding:0 24px;color:#172033}h1{font-size:44px}h2{margin-top:30px}.box{border:1px solid #cad4e0;border-radius:14px;padding:16px;margin:12px 0}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.m{background:#eef4fa;padding:12px;border-radius:10px}small{color:#667085}@media print{body{margin:0}}</style></head><body><small>LUMEN PERSONALIZED INSIGHT REPORT • ${esc(artifact.sessionId)}</small><h1>${esc(val('experienceTitle'))}</h1><div class="box"><b>Situation</b><p>${esc(val('situation'))}</p><b>Desired outcome</b><p>${esc(val('desiredOutcome'))}</p></div><h2>Option signal</h2><div class="box"><p><b>Current preferred signal:</b> ${esc(artifact.preferred)}</p><p>A: ${artifact.scores.options[0]}/100 • B: ${artifact.scores.options[1]}/100 • C: ${artifact.scores.options[2]}/100</p></div><div class="metrics"><div class="m"><b>${artifact.scores.signal}</b><br>Option signal</div><div class="m"><b>${artifact.scores.readiness}</b><br>Readiness</div><div class="m"><b>${artifact.scores.learning}</b><br>Learning value</div><div class="m"><b>${artifact.scores.balance}</b><br>Balance</div></div><h2>Illumination</h2><div class="box"><p>${esc(artifact.texts.illumination)}</p><p>${esc(artifact.texts.interpretation)}</p><p><b>Question to carry:</b> ${esc(artifact.texts.question)}</p><p><b>Next experiment:</b> ${esc(artifact.texts.experiment)}</p></div><h2>Input record</h2><div class="box"><p><b>Stakeholders:</b> ${esc(val('stakeholders'))}</p><p><b>Constraint:</b> ${esc(val('constraint'))}</p><p><b>Evidence:</b> ${esc(val('evidence'))}</p><p><b>Hidden influence:</b> ${esc(val('hiddenInfluence'))}</p><p><b>Meaning:</b> ${esc(val('meaning'))}</p></div><p><small>Generated ${esc(artifact.createdAt)} • Hash ${esc(artifact.hash)} • Order ${esc(access.orderId)}. This is a private reflective keepsake created from user-supplied inputs. It is not professional advice, diagnosis, identity, certification, or independent verification of an event.</small></p></body></html>`}
+$('generateBtn').onclick=generate;$('randomPromptBtn').onclick=()=>{const p=promptSets[Math.floor(Math.random()*promptSets.length)];$('situation').value=p[0];$('optionA').value=p[1];$('optionB').value=p[2];$('optionC').value=p[3];generate()};$('resetBtn').onclick=()=>location.reload();['clarity','uncertainty','reversibility','benefit','burden','timeSensitivity'].forEach(id=>{$(id).oninput=()=>{const out={clarity:'clarityOut',uncertainty:'uncertaintyOut',reversibility:'reversibilityOut',benefit:'benefitOut',burden:'burdenOut',timeSensitivity:'timeOut'}[id];$(out).textContent=$(id).value}});['price','currency'].forEach(id=>$(id).addEventListener('input',updatePrice));
+$('demoUnlock').onclick=()=>unlock('DEMO-'+Date.now(),'demo-token');
+$('reportBtn').onclick=()=>{if(requireUnlock())dl((artifact.sessionId||'lumen')+'-report.html',new Blob([reportHtml()],{type:'text/html'}))};
+$('jsonBtn').onclick=()=>{if(requireUnlock())dl((artifact.sessionId||'lumen')+'.json',new Blob([JSON.stringify(snapshot(),null,2)],{type:'application/json'}))};
+$('cardPngBtn').onclick=async()=>{if(!requireUnlock())return;if(typeof html2canvas!=='function')return alert('PNG library unavailable. Reload while online.');const c=await html2canvas($('artifactCard'),{backgroundColor:null,scale:4,useCORS:true});c.toBlob(b=>dl((artifact.sessionId||'lumen')+'-card.png',b),'image/png')};
+$('htmlBtn').onclick=()=>{if(!requireUnlock())return;const content=reportHtml().replace('</body>',`<script>console.log(${JSON.stringify(snapshot())})<\/script></body>`);dl((artifact.sessionId||'lumen')+'-keepsake.html',new Blob([content],{type:'text/html'}))};$('printBtn').onclick=()=>{if(requireUnlock())window.print()};
+window.addEventListener('load',async()=>{if(new URLSearchParams(location.search).get('demo')==='1')$('demoArea').classList.remove('hidden');await generate();setTimeout(setupApplePay,500)});
 </script>
-</body>
-</html>
+</body></html>
