@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Puzzle-Assessed Event Record Card</title>
+<style>
+:root{--navy:#14324f;--gold:#b88732;--paper:#f8f5eb;--ink:#17202a;--muted:#667085;--green:#2f6b4f;--red:#8a2f2f}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#e9edf2;color:var(--ink)}
+.app{display:grid;grid-template-columns:minmax(340px,470px) 1fr;gap:18px;padding:18px;align-items:start}
+.panel{background:#fff;border:1px solid #cfd6df;border-radius:14px;padding:16px;box-shadow:0 3px 14px rgba(0,0,0,.08)}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:16px;margin:20px 0 8px}.help{color:var(--muted);font-size:13px;line-height:1.35}.warning{margin-top:10px;padding:10px;border:1px solid #d8b766;border-radius:9px;background:#fff8e7;font-size:12px;line-height:1.35}
+label{display:block;font-weight:700;font-size:12px;margin-top:10px}input,textarea,select,button{font:inherit}
+input[type=text],input[type=date],input[type=datetime-local],input[type=number],textarea,select{width:100%;border:1px solid #b9c2cf;border-radius:8px;padding:9px 10px;background:#fff}textarea{min-height:62px;resize:vertical}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+button{border:0;border-radius:9px;padding:10px 12px;font-weight:800;cursor:pointer}.primary{background:var(--navy);color:#fff}.secondary{background:#eef2f6;color:#17202a;border:1px solid #cbd3dd}.warn{background:#fff4df;color:#6c4600;border:1px solid #dfc48a}.danger{background:#fff0f0;color:#7a1f1f;border:1px solid #d8aaaa}
+fieldset{border:1px solid #cbd3dd;border-radius:10px;margin:12px 0 0;padding:12px}legend{font-weight:900;font-size:13px;padding:0 6px}.scorebox{margin-top:10px;padding:10px;border:1px solid #9aa7b7;border-radius:8px;background:#f7f9fb}.scoreline{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin:3px 0}.scoreline strong{font-variant-numeric:tabular-nums}.fingerprint{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;word-break:break-all;background:#eef2f6;padding:8px;border-radius:6px}.hidden{display:none!important}.archive-list{max-height:220px;overflow:auto;border:1px solid #d5dbe3;border-radius:9px;margin-top:8px}.archive-item{padding:9px;border-bottom:1px solid #e4e8ee}.archive-item:last-child{border-bottom:0}.archive-item button{padding:6px 8px;margin:4px 4px 0 0}
+.stage{display:flex;justify-content:center;padding:8px;overflow:auto}.card-wrap{width:3.375in}.card{width:3.375in;height:2.125in;background:var(--paper);border:1px solid #adb5bf;border-radius:.12in;overflow:hidden;position:relative;color:#111;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+.card .header{height:.43in;background:var(--navy);color:#fff;padding:.07in .11in;display:flex;align-items:center;justify-content:space-between}.title{font-weight:900;font-size:11.5px;letter-spacing:.35px;line-height:1.02}.subtitle{font-size:5.7px;color:#eedba6;margin-top:3px;letter-spacing:.1px}.seal{width:.30in;height:.30in;border-radius:50%;background:#fff;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--navy);font-size:8px}
+.body{display:grid;grid-template-columns:1.76in 1.31in;gap:.06in;padding:.055in .075in 0;height:1.25in;overflow:hidden}.left,.right{min-width:0;overflow:hidden}.field{font-size:5.55px;line-height:1.08;margin-bottom:3px;overflow:hidden}.field b{display:block;font-size:4.45px;line-height:1.02;color:#3b4a5a;text-transform:uppercase;letter-spacing:.16px;margin-bottom:1px}.field span{display:block;overflow-wrap:anywhere;max-height:2.2em;overflow:hidden}.field.one span{max-height:1.12em}.subject{font-size:7px!important;font-weight:900;color:#123d63}.game-grid{display:grid;grid-template-columns:1fr;gap:3px}.game{border:1px solid #a9b3bf;border-radius:.045in;background:#fff;padding:.025in .035in;font-size:4.6px;line-height:1.05}.game b{font-size:4.9px}.metric{display:flex;justify-content:space-between;gap:3px}.metric strong{font-size:5.4px;color:#0d3f73}.outcome{border:1px solid #7d8b99;border-radius:.05in;background:#fff;padding:.035in;font-size:4.6px;line-height:1.05}.outcome-title{font-size:5.8px;font-weight:900;color:var(--green);margin-bottom:2px}.hash{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:4.15px;word-break:break-all;margin-top:2px}.notice{position:absolute;left:.10in;right:.10in;bottom:.405in;height:.145in;display:flex;align-items:center;justify-content:center;border-top:1px solid #b8c0ca;padding:2px .02in 0;font-size:4.15px;line-height:1.06;text-align:center;overflow:hidden}.transfer{position:absolute;left:.10in;right:.10in;bottom:.266in;height:.105in;border-top:1px solid #9aa5b1;padding-top:2px;font-size:4.05px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.footer{position:absolute;left:0;right:0;bottom:0;height:.23in;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 .10in;font-size:5.15px}.badge{color:#ffe69c;font-weight:900}
+@media(max-width:1000px){.app{grid-template-columns:1fr}.stage{justify-content:flex-start}}@media(max-width:520px){.grid2,.grid3{grid-template-columns:1fr}}
+@media print{body{background:#fff}.controls,.no-print{display:none!important}.app{display:block;padding:0}.panel{border:0;box-shadow:none;padding:0}.stage{padding:0}.card-wrap{width:3.375in}.card{box-shadow:none;border:.3pt solid #999}@page{size:3.375in 2.125in;margin:0}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<div class="app">
+<section class="panel controls">
+<h1>Puzzle-Assessed Event Record Card</h1>
+<div class="help">Creates a private record for a service, product, exercise, transaction, inspection, demonstration, or other described event using three puzzle-based assessment layers.</div>
+<div class="warning"><b>Important:</b> This card records supplied inputs and calculated puzzle results. It is not government ID, a professional licence, a notarization, a cryptographic signature, or independent proof that an external event occurred. Its value comes only from the underlying agreement, evidence, issuer reputation, and applicable law.</div>
+
+<h2>Event and record</h2>
+<label>Record title<input id="recordTitle" type="text" value="Service Completion and Puzzle Assessment"></label>
+<label>Event / service / product assessed<textarea id="subject">Prototype service demonstration and delivery event</textarea></label>
+<div class="grid2"><label>Event date and time<input id="eventDate" type="datetime-local"></label><label>Issue date<input id="issueDate" type="date"></label></div>
+<div class="grid2"><label>Issuer / recorder<input id="issuer" type="text" value="Example Private Issuer"></label><label>Event reference<input id="eventRef" type="text" value="EVT-2026-0001"></label></div>
+<label>Source evidence references<textarea id="evidenceRefs" placeholder="Invoice, receipt, sensor log, witness note, file hash, photograph reference, work order, etc.">Work order WO-1001; completion log CL-1001</textarea></label>
+<label>Recorded event statement<textarea id="eventStatement">The described service event was recorded as completed and then evaluated through the three puzzle layers shown on this card.</textarea></label>
+
+<fieldset>
+<legend>Level 1 - Sub Sweeper evidence topology</legend>
+<div class="help">Uses the workbook rule: raw neighbouring option count = (printed clue + 1) / 2. Enter an odd printed clue and the confirmation results.</div>
+<div class="grid3"><label>Printed clue<input id="ssClue" type="number" min="1" max="15" step="2" value="5"></label><label>Confirmed nodes<input id="ssConfirmed" type="number" min="0" max="8" value="3"></label><label>Contradictions<input id="ssContradictions" type="number" min="0" max="8" value="0"></label></div>
+<div class="grid2"><label>Topology pattern<select id="ssTopology"><option>Stable</option><option>Broken</option><option>Unstable</option><option>Random</option></select></label><label>Dominant node type<select id="ssNodeType"><option>Stakeholder</option><option>Resource</option><option>Risk</option><option>Action</option><option>Insight</option></select></label></div>
+<label>Evidence interpretation<textarea id="ssNotes">The confirmed option count matches the converted clue.</textarea></label>
+<div class="scorebox"><div class="scoreline"><span>Converted target</span><strong id="ssTargetOut">3</strong></div><div class="scoreline"><span>Evidence fit</span><strong id="ssFitOut">100%</strong></div><div class="scoreline"><span>Level score</span><strong id="ssScoreOut">10.0 / 10</strong></div></div>
+</fieldset>
+
+<fieldset>
+<legend>Level 2 - Situational Geometry map</legend>
+<div class="help">Uses the four-part 0-10 player ruler: route quality 0-3, conflict identification 0-2, system modification 0-3, and interpretation clarity 0-2.</div>
+<div class="grid2"><label>Route quality (0-3)<input id="sgRoute" type="number" min="0" max="3" value="3"></label><label>Conflict identification (0-2)<input id="sgConflict" type="number" min="0" max="2" value="2"></label></div>
+<div class="grid2"><label>System modification (0-3)<input id="sgModification" type="number" min="0" max="3" value="2"></label><label>Interpretation clarity (0-2)<input id="sgInterpretation" type="number" min="0" max="2" value="2"></label></div>
+<div class="grid3"><label>Nodes N<input id="sgNodes" type="number" min="1" value="30"></label><label>Edges E<input id="sgEdges" type="number" min="0" value="56"></label><label>Levels L<input id="sgLevels" type="number" min="1" value="5"></label></div>
+<label>Situation and selected route<textarea id="sgNotes">A stable route was selected, the principal conflict was identified, and one modification reduced instability.</textarea></label>
+<div class="scorebox"><div class="scoreline"><span>Player score</span><strong id="sgScoreOut">9 / 10</strong></div><div class="scoreline"><span>Network density</span><strong id="sgDensityOut">0.129</strong></div><div class="scoreline"><span>Calculated complexity</span><strong id="sgComplexityOut">290.0</strong></div></div>
+</fieldset>
+
+<fieldset>
+<legend>Level 3 - Outcome Discovery consequence map</legend>
+<div class="help">Scores each dimension from -3 to +3. Weights: success x2, risk control x2, resource efficiency x1, time performance x1, stability x2, future opportunities x1.</div>
+<div class="grid3"><label>Success<input id="odSuccess" type="number" min="-3" max="3" value="2"></label><label>Risk control<input id="odRisk" type="number" min="-3" max="3" value="1"></label><label>Resource efficiency<input id="odResource" type="number" min="-3" max="3" value="1"></label></div>
+<div class="grid3"><label>Time performance<input id="odTime" type="number" min="-3" max="3" value="1"></label><label>System stability<input id="odStability" type="number" min="-3" max="3" value="2"></label><label>Future options<input id="odFuture" type="number" min="-3" max="3" value="1"></label></div>
+<div class="grid2"><label>Confidence adjustment (-3 to +3)<input id="odConfidence" type="number" min="-3" max="3" value="1"></label><label>Strongest hidden influence<input id="odInfluence" type="text" value="Completion depends on retained source records"></label></div>
+<label>Final outcome and reason<textarea id="odNotes">Positive outcome, conditional on preserving the referenced evidence and verifying the issuer's records.</textarea></label>
+<div class="scorebox"><div class="scoreline"><span>Weighted subtotal</span><strong id="odSubtotalOut">13</strong></div><div class="scoreline"><span>Final impact score</span><strong id="odScoreOut">14 / 30</strong></div><div class="scoreline"><span>Outcome class</span><strong id="odClassOut">Positive</strong></div></div>
+</fieldset>
+
+<h2>Card utility and transfer</h2>
+<div class="grid2"><label>Utility / entitlement described<input id="utility" type="text" value="Access to the recorded service report and its puzzle results"></label><label>Current controller / holder<input id="controller" type="text" value="Original purchaser or lawful transferee"></label></div>
+<div class="grid2"><label>Transfer status<select id="transferStatus"><option>Non-transferable</option><option selected>Transferable with underlying agreement</option><option>Transferable after issuer approval</option></select></label><label>Review / expiry wording<input id="expiryText" type="text" value="Review against source record before reliance"></label></div>
+<label>Transfer conditions<textarea id="transferTerms">Transfer does not change the underlying facts. A transferee receives only the contractual utility expressly assigned in the underlying agreement.</textarea></label>
+<label><input id="issuerAttestation" type="checkbox" checked> Issuer attests that the entered inputs match the issuer's retained record at the time of issue.</label>
+<div class="scorebox"><div class="scoreline"><span>Composite puzzle score</span><strong id="compositeOut">83 / 100</strong></div><div class="scoreline"><span>Assessment band</span><strong id="bandOut">Strong recorded consistency</strong></div><div class="help" style="margin-top:8px">Record fingerprint</div><div id="fingerprint" class="fingerprint">Generating…</div></div>
+
+<h2>Record archive</h2>
+<div class="help">Saved in this browser only. Export JSON for a portable record copy.</div>
+<label>Search saved records<input id="archiveSearch" type="text" placeholder="Title, event reference, subject, issuer"></label>
+<div class="actions"><button class="primary" id="saveArchive" type="button">Save / update record</button><button class="secondary" id="newRecord" type="button">Clear / new record</button><button class="secondary" id="exportArchive" type="button">Export archive JSON</button><button class="secondary" id="importArchiveBtn" type="button">Import archive</button><input id="importArchive" type="file" accept=".json,application/json" class="hidden"></div>
+<div id="archiveList" class="archive-list"></div>
+
+<h2>Project and export</h2>
+<div class="actions"><button class="primary" id="saveProject" type="button">Save project JSON</button><button class="secondary" id="loadProjectBtn" type="button">Load project</button><input id="loadProject" type="file" accept=".json,application/json" class="hidden"><button class="primary" id="exportPng" type="button">Export 300 DPI PNG</button><button class="secondary" id="printCard" type="button">Print / Save PDF</button><button class="warn" id="exportHtml" type="button">Export editable HTML</button></div>
+</section>
+
+<section class="panel">
+<div class="stage"><div class="card-wrap"><div class="card" id="card">
+<div class="header"><div><div class="title" id="vRecordTitle">PUZZLE-ASSESSED EVENT RECORD</div><div class="subtitle">PRIVATE SERVICE / PRODUCT / EVENT RECORD • THREE-LAYER CALCULATION</div></div><div class="seal">3×</div></div>
+<div class="body">
+<div class="left">
+  <div class="field one"><b>Event reference</b><span id="vEventRef"></span></div>
+  <div class="field"><b>Assessed subject</b><span class="subject" id="vSubject"></span></div>
+  <div class="field one"><b>Event time</b><span id="vEventDate"></span></div>
+  <div class="field one"><b>Issuer / recorder</b><span id="vIssuer"></span></div>
+  <div class="field"><b>Recorded event statement</b><span id="vEventStatement"></span></div>
+  <div class="field one"><b>Evidence references</b><span id="vEvidenceRefs"></span></div>
+</div>
+<div class="right">
+  <div class="game-grid">
+    <div class="game"><b>1 • SUB SWEEPER</b><div class="metric"><span>Target / confirmed</span><strong id="vSSCounts">3 / 3</strong></div><div class="metric"><span>Fit / score</span><strong id="vSSScore">100% • 10.0</strong></div></div>
+    <div class="game"><b>2 • SITUATIONAL GEOMETRY</b><div class="metric"><span>Ruler score</span><strong id="vSGScore">9 / 10</strong></div><div class="metric"><span>Density / complexity</span><strong id="vSGMetrics">.129 • 290.0</strong></div></div>
+    <div class="game"><b>3 • OUTCOME DISCOVERY</b><div class="metric"><span>Impact / class</span><strong id="vODScore">14 • Positive</strong></div><div class="metric"><span>Hidden influence</span><strong id="vODInfluence">Source records</strong></div></div>
+    <div class="outcome"><div class="outcome-title" id="vBand">STRONG RECORDED CONSISTENCY</div><div>Composite: <b id="vComposite">83 / 100</b></div><div>Utility: <span id="vUtility"></span></div><div class="hash">FP <span id="vFingerprint"></span></div></div>
+  </div>
+</div>
+</div>
+<div class="notice" id="vNotice">This privately issued card records supplied inputs and puzzle calculations; it is not independent proof of an external event.</div>
+<div class="transfer"><b>Transfer:</b> <span id="vTransfer"></span> • <b>Controller:</b> <span id="vController"></span></div>
+<div class="footer"><span id="vIssueDate"></span><span class="badge">NOT GOVERNMENT ID • NOT INDEPENDENT VERIFICATION</span><span id="vExpiry"></span></div>
+</div></div></div>
+<p class="help no-print">CR80 card size: 3.375 × 2.125 inches. The PNG exporter targets 1013 × 638 pixels (approximately 300 DPI).</p><div id="exportStatus" class="help no-print" aria-live="polite"></div>
+</section>
+</div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const fieldIds=[
+"recordTitle","subject","eventDate","issueDate","issuer","eventRef","evidenceRefs","eventStatement",
+"ssClue","ssConfirmed","ssContradictions","ssTopology","ssNodeType","ssNotes",
+"sgRoute","sgConflict","sgModification","sgInterpretation","sgNodes","sgEdges","sgLevels","sgNotes",
+"odSuccess","odRisk","odResource","odTime","odStability","odFuture","odConfidence","odInfluence","odNotes",
+"utility","controller","transferStatus","expiryText","transferTerms"
+];
+const state={recordId:""};
+const ARCHIVE_KEY="puzzleAssessedEventRecordArchive.v1";
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,Number.isFinite(Number(v))?Number(v):0));
+const val=id=>$(id).value;
+const num=(id,min,max)=>clamp($(id).value,min,max);
+function fmtDateTime(value){if(!value)return "—";const d=new Date(value);return Number.isNaN(d.getTime())?value:d.toLocaleString("en-CA",{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});}
+function fmtDate(value){if(!value)return "—";const d=new Date(value+"T12:00:00");return d.toLocaleDateString("en-CA",{year:"numeric",month:"short",day:"numeric"});}
+function calculate(){
+  let clue=Math.round(num("ssClue",1,15)); if(clue%2===0)clue=Math.max(1,clue-1);
+  const target=(clue+1)/2, confirmed=num("ssConfirmed",0,8), contradictions=num("ssContradictions",0,8);
+  const diff=Math.abs(confirmed-target); const fit=Math.max(0,100-(diff/Math.max(target,1))*70-contradictions*12.5);
+  const topologyFactor={Stable:1,Broken:.86,Unstable:.72,Random:.78}[val("ssTopology")]||.75;
+  const ssScore=clamp((fit/10)*topologyFactor,0,10);
+
+  const sgScore=num("sgRoute",0,3)+num("sgConflict",0,2)+num("sgModification",0,3)+num("sgInterpretation",0,2);
+  const N=Math.max(1,num("sgNodes",1,10000)),E=Math.max(0,num("sgEdges",0,100000)),L=Math.max(1,num("sgLevels",1,100));
+  const density=N>1?(2*E)/(N*(N-1)):0;
+  const complexity=(N+E)*Math.log2(L+1);
+
+  const subtotal=num("odSuccess",-3,3)*2+num("odRisk",-3,3)*2+num("odResource",-3,3)+num("odTime",-3,3)+num("odStability",-3,3)*2+num("odFuture",-3,3);
+  const odScore=clamp(subtotal+num("odConfidence",-3,3),-30,30);
+  const odClass=odScore>=16?"Strong positive":odScore>=6?"Positive":odScore>=-5?"Mixed / uncertain":odScore>=-15?"Negative":"Strong negative";
+  const odNormalized=((odScore+30)/60)*100;
+  const attestation=$("issuerAttestation").checked?1:.85;
+  const composite=Math.round(clamp((ssScore*10)*.34+(sgScore*10)*.33+odNormalized*.33,0,100)*attestation);
+  const band=composite>=85?"High recorded consistency":composite>=70?"Strong recorded consistency":composite>=50?"Moderate recorded consistency":composite>=30?"Limited recorded consistency":"Insufficient recorded consistency";
+  return{clue,target,confirmed,contradictions,fit,ssScore,sgScore,density,complexity,subtotal,odScore,odClass,composite,band};
+}
+function fitCardText(){const card=$("card");card.querySelectorAll(".field span,.notice,.transfer,.game strong,.outcome span").forEach(el=>{el.style.fontSize="";let size=parseFloat(getComputedStyle(el).fontSize)||5;let guard=0;while((el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)&&size>3.5&&guard<16){size-=.18;el.style.fontSize=size+"px";guard++;}});}
+async function makeFingerprint(calc){
+  const payload={version:1,recordTitle:val("recordTitle"),subject:val("subject"),eventDate:val("eventDate"),issueDate:val("issueDate"),issuer:val("issuer"),eventRef:val("eventRef"),evidenceRefs:val("evidenceRefs"),eventStatement:val("eventStatement"),subSweeper:{clue:calc.clue,target:calc.target,confirmed:calc.confirmed,contradictions:calc.contradictions,topology:val("ssTopology"),nodeType:val("ssNodeType"),notes:val("ssNotes")},situationalGeometry:{route:num("sgRoute",0,3),conflict:num("sgConflict",0,2),modification:num("sgModification",0,3),interpretation:num("sgInterpretation",0,2),nodes:num("sgNodes",1,10000),edges:num("sgEdges",0,100000),levels:num("sgLevels",1,100),notes:val("sgNotes")},outcomeDiscovery:{success:num("odSuccess",-3,3),risk:num("odRisk",-3,3),resource:num("odResource",-3,3),time:num("odTime",-3,3),stability:num("odStability",-3,3),future:num("odFuture",-3,3),confidence:num("odConfidence",-3,3),influence:val("odInfluence"),notes:val("odNotes")},utility:val("utility"),controller:val("controller"),transferStatus:val("transferStatus"),transferTerms:val("transferTerms"),issuerAttestation:$("issuerAttestation").checked,results:{ssScore:calc.ssScore,sgScore:calc.sgScore,odScore:calc.odScore,composite:calc.composite}};
+  const text=JSON.stringify(payload);
+  try{if(window.crypto?.subtle&&window.TextEncoder){const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(text));const hex=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");$("fingerprint").textContent=hex;$("vFingerprint").textContent=hex.slice(0,20).toUpperCase();return;}}catch(e){console.warn(e)}
+  let h1=0x811c9dc5,h2=0x9e3779b9;for(let i=0;i<text.length;i++){const c=text.charCodeAt(i);h1=Math.imul(h1^c,0x01000193)>>>0;h2=Math.imul(h2+c+(h2<<6)+(h2>>>2),0x85ebca6b)>>>0;}const hex=(h1.toString(16).padStart(8,"0")+h2.toString(16).padStart(8,"0")).toUpperCase();$("fingerprint").textContent=hex.match(/.{1,4}/g).join("-");$("vFingerprint").textContent=hex;
+}
+function update(){
+  const c=calculate();
+  $("ssTargetOut").textContent=c.target.toFixed(0);$("ssFitOut").textContent=c.fit.toFixed(0)+"%";$("ssScoreOut").textContent=c.ssScore.toFixed(1)+" / 10";
+  $("sgScoreOut").textContent=c.sgScore.toFixed(0)+" / 10";$("sgDensityOut").textContent=c.density.toFixed(3);$("sgComplexityOut").textContent=c.complexity.toFixed(1);
+  $("odSubtotalOut").textContent=c.subtotal.toFixed(0);$("odScoreOut").textContent=c.odScore.toFixed(0)+" / 30";$("odClassOut").textContent=c.odClass;
+  $("compositeOut").textContent=c.composite+" / 100";$("bandOut").textContent=c.band;
+  $("vRecordTitle").textContent=(val("recordTitle")||"PUZZLE-ASSESSED EVENT RECORD").toUpperCase();$("vEventRef").textContent=val("eventRef")||"—";$("vSubject").textContent=val("subject")||"—";$("vEventDate").textContent=fmtDateTime(val("eventDate"));$("vIssuer").textContent=val("issuer")||"—";$("vEventStatement").textContent=val("eventStatement")||"—";$("vEvidenceRefs").textContent=val("evidenceRefs")||"No reference entered";
+  $("vSSCounts").textContent=c.target.toFixed(0)+" / "+c.confirmed.toFixed(0);$("vSSScore").textContent=c.fit.toFixed(0)+"% • "+c.ssScore.toFixed(1);$("vSGScore").textContent=c.sgScore.toFixed(0)+" / 10";$("vSGMetrics").textContent=c.density.toFixed(3)+" • "+c.complexity.toFixed(1);$("vODScore").textContent=c.odScore.toFixed(0)+" • "+c.odClass;$("vODInfluence").textContent=val("odInfluence")||"—";$("vBand").textContent=c.band.toUpperCase();$("vComposite").textContent=c.composite+" / 100";$("vUtility").textContent=val("utility")||"—";$("vTransfer").textContent=val("transferStatus");$("vController").textContent=val("controller")||"—";$("vIssueDate").textContent=fmtDate(val("issueDate"));$("vExpiry").textContent=val("expiryText")||"—";
+  requestAnimationFrame(fitCardText);makeFingerprint(c);
+}
+fieldIds.forEach(id=>{$(id).addEventListener("input",update);$(id).addEventListener("change",update)});$("issuerAttestation").addEventListener("change",update);
+function getProject(){const data={};fieldIds.forEach(id=>data[id]=$(id).value);data.issuerAttestation=$("issuerAttestation").checked;return{...data,...state,version:1,results:calculate(),updatedAt:new Date().toISOString()};}
+function applyProject(data){fieldIds.forEach(id=>{if(data[id]!==undefined&&data[id]!==null)$(id).value=data[id]});$("issuerAttestation").checked=data.issuerAttestation!==false;state.recordId=data.recordId||"";update();}
+function download(name,blob){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function readArchive(){try{const x=JSON.parse(localStorage.getItem(ARCHIVE_KEY)||"[]");return Array.isArray(x)?x:[]}catch(e){return[]}}
+function writeArchive(items){localStorage.setItem(ARCHIVE_KEY,JSON.stringify(items));}
+function newId(){return"evt-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8)}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"})[ch]);}
+function renderArchive(){const q=$("archiveSearch").value.trim().toLowerCase(),list=$("archiveList");const items=readArchive().filter(r=>[r.recordTitle,r.eventRef,r.subject,r.issuer].join(" ").toLowerCase().includes(q)).sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||""));list.innerHTML="";if(!items.length){list.innerHTML="<div class='archive-item help'>No saved records.</div>";return}items.forEach(record=>{const div=document.createElement("div");div.className="archive-item";div.innerHTML=`<b>${escapeHtml(record.recordTitle||"Unnamed record")}</b><div class="help">${escapeHtml(record.eventRef||"No reference")} • ${escapeHtml(record.subject||"No subject")} • ${record.updatedAt?escapeHtml(new Date(record.updatedAt).toLocaleString()):""}</div>`;const open=document.createElement("button");open.type="button";open.className="secondary";open.textContent="Open / update";open.onclick=()=>applyProject(record);const del=document.createElement("button");del.type="button";del.className="danger";del.textContent="Delete";del.onclick=()=>{if(!confirm("Delete this saved record?"))return;writeArchive(readArchive().filter(x=>x.recordId!==record.recordId));if(state.recordId===record.recordId)state.recordId="";renderArchive()};div.append(open,del);list.appendChild(div)});}
+$("saveArchive").onclick=()=>{try{const record=getProject();if(!record.recordId)record.recordId=newId();state.recordId=record.recordId;const items=readArchive(),i=items.findIndex(x=>x.recordId===record.recordId);if(i>=0)items[i]=record;else items.push(record);writeArchive(items);renderArchive();$("saveArchive").textContent="Saved ✓";setTimeout(()=>$("saveArchive").textContent="Save / update record",1400)}catch(e){alert("This browser could not save the record.")}};
+$("archiveSearch").oninput=renderArchive;
+$("newRecord").onclick=()=>{if(!confirm("Clear the current form and start a new record?"))return;fieldIds.forEach(id=>{const el=$(id);if(el.tagName==="SELECT")el.selectedIndex=0;else el.value=""});$("issuerAttestation").checked=false;state.recordId="";$("recordTitle").value="Puzzle-Assessed Event Record";$("issueDate").value=new Date().toISOString().slice(0,10);update()};
+$("saveProject").onclick=()=>download("puzzle-event-record-project.json",new Blob([JSON.stringify(getProject(),null,2)],{type:"application/json"}));
+$("loadProjectBtn").onclick=()=>$("loadProject").click();$("loadProject").onchange=()=>{const f=$("loadProject").files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{applyProject(JSON.parse(r.result))}catch(e){alert("Could not load project file.")}};r.readAsText(f)};
+$("printCard").onclick=()=>window.print();
+$("exportArchive").onclick=()=>download("puzzle-event-record-archive.json",new Blob([JSON.stringify({format:"PuzzleAssessedEventRecordArchive",version:1,records:readArchive()},null,2)],{type:"application/json"}));
+$("importArchiveBtn").onclick=()=>$("importArchive").click();$("importArchive").onchange=()=>{const f=$("importArchive").files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const data=JSON.parse(r.result),incoming=Array.isArray(data)?data:(data.records||[]),map=new Map(readArchive().map(x=>[x.recordId||newId(),x]));incoming.forEach(x=>map.set(x.recordId||newId(),x));writeArchive([...map.values()]);renderArchive();alert("Archive imported.")}catch(e){alert("Could not import archive.")}};r.readAsText(f)};
+$("exportHtml").onclick=()=>{const clone=document.documentElement.cloneNode(true);clone.querySelector("body").insertAdjacentHTML("beforeend",`<script>window.addEventListener("DOMContentLoaded",()=>{try{applyProject(${JSON.stringify(getProject())})}catch(e){console.error(e)}});<\/script>`);download("editable-puzzle-event-record.html",new Blob(["<!doctype html>\n"+clone.outerHTML],{type:"text/html"}))};
+async function exportCardAsPng(){const status=$("exportStatus");status.textContent="Preparing card image…";try{if(typeof html2canvas!=="function")throw new Error("Export library unavailable");if(document.fonts?.ready)await document.fonts.ready;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const target=$("card"),rect=target.getBoundingClientRect(),targetW=1013,targetH=638,canvas=await html2canvas(target,{backgroundColor:null,scale:targetW/rect.width,useCORS:true,allowTaint:false,logging:false,width:rect.width,height:rect.height,scrollX:0,scrollY:-window.scrollY});const finalCanvas=document.createElement("canvas");finalCanvas.width=targetW;finalCanvas.height=targetH;const g=finalCanvas.getContext("2d");g.imageSmoothingEnabled=true;g.imageSmoothingQuality="high";g.drawImage(canvas,0,0,targetW,targetH);finalCanvas.toBlob(blob=>{if(!blob)throw new Error("PNG creation failed");download("puzzle-event-record-card-300dpi.png",blob);status.textContent="Exported 1013 × 638 PNG."},"image/png")}catch(e){console.error(e);status.textContent="Export failed. Reload while online and try again.";alert("Could not export the card image.")}}
+$("exportPng").onclick=exportCardAsPng;
+if(!$("eventDate").value){const now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());$("eventDate").value=now.toISOString().slice(0,16)}if(!$("issueDate").value)$("issueDate").value=new Date().toISOString().slice(0,10);renderArchive();update();
+</script>
+</body>
+</html>
