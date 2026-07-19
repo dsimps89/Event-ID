@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LUMEN Experience Credit Pass</title>
+<style>
+:root{
+  --bg:#07101f;--panel:#0e1a31;--panel2:#132442;--line:#29446f;--text:#f7fbff;--muted:#9fb4d4;
+  --cyan:#28e0ff;--violet:#9a65ff;--pink:#ff4fc6;--lime:#b7ff4a;--gold:#ffc857;--danger:#ff6b7d;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--text);background:
+radial-gradient(circle at 15% 10%,rgba(154,101,255,.18),transparent 30%),
+radial-gradient(circle at 85% 20%,rgba(40,224,255,.13),transparent 28%),
+linear-gradient(145deg,#050a13,#0a1426 50%,#080e1a);min-height:100vh}
+.app{display:grid;grid-template-columns:minmax(355px,510px) 1fr;gap:20px;padding:20px;align-items:start}
+.panel{background:linear-gradient(180deg,rgba(19,36,66,.96),rgba(9,19,37,.98));border:1px solid rgba(119,157,216,.28);border-radius:22px;padding:18px;box-shadow:0 25px 80px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.04)}
+h1{font-size:24px;margin:0 0 5px;letter-spacing:.04em}.kicker{font-size:11px;font-weight:900;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}.help{font-size:12.5px;line-height:1.45;color:var(--muted)}
+.notice{padding:11px 12px;margin:12px 0;border-radius:12px;border:1px solid rgba(255,200,87,.38);background:rgba(255,200,87,.08);font-size:12px;line-height:1.42;color:#ffe5a8}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin:21px 0 9px;color:#dce9ff}
+label{display:block;font-size:11px;font-weight:850;color:#bcd0ef;margin-top:10px;letter-spacing:.03em}
+input,textarea,select,button{font:inherit}input[type=text],input[type=number],input[type=date],input[type=datetime-local],textarea,select{width:100%;margin-top:5px;color:#f8fbff;background:#0a162b;border:1px solid #34517e;border-radius:10px;padding:10px 11px;outline:none}textarea{min-height:68px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(40,224,255,.11)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.row{display:flex;align-items:center;gap:8px;margin-top:11px}.row input[type=checkbox]{width:18px;height:18px;accent-color:var(--cyan)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}button{border:0;border-radius:11px;padding:10px 12px;font-weight:900;cursor:pointer;transition:.18s transform,.18s filter}.primary{color:#04101b;background:linear-gradient(90deg,var(--cyan),#77ffd7)}.secondary{color:#eef6ff;background:#182b4b;border:1px solid #35517f}.accent{color:#fff;background:linear-gradient(90deg,var(--violet),var(--pink))}.danger{color:#fff;background:#5b2031;border:1px solid #9c4057}button:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{border:1px solid rgba(87,132,198,.35);background:#0a172b;border-radius:12px;padding:10px}.stat b{display:block;font-size:18px;color:#fff}.stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.log{margin-top:8px;max-height:210px;overflow:auto;border:1px solid #29466e;border-radius:12px;background:#081426}.log-item{padding:9px 10px;border-bottom:1px solid #203858;font-size:11px;line-height:1.35}.log-item:last-child{border-bottom:0}.log-item strong{color:var(--cyan)}
+.stage{display:flex;justify-content:center;align-items:flex-start;padding:10px;min-height:650px}.card-wrap{width:3.375in;position:sticky;top:18px}.card{width:3.375in;height:2.125in;border-radius:.18in;position:relative;overflow:hidden;color:#fff;background:
+radial-gradient(circle at 80% 22%,rgba(40,224,255,.28),transparent 25%),
+radial-gradient(circle at 18% 92%,rgba(255,79,198,.22),transparent 28%),
+linear-gradient(138deg,#091226,#132e58 58%,#1c1648);border:1px solid rgba(126,209,255,.55);box-shadow:0 30px 75px rgba(0,0,0,.5),0 0 40px rgba(40,224,255,.12)}
+.card:before{content:"";position:absolute;inset:-35%;background:repeating-linear-gradient(117deg,transparent 0 23px,rgba(255,255,255,.028) 24px 25px);transform:rotate(4deg);pointer-events:none}.glow{position:absolute;width:1.15in;height:1.15in;right:-.35in;top:-.35in;border-radius:50%;border:.04in solid rgba(40,224,255,.25);box-shadow:0 0 .4in rgba(40,224,255,.24)}
+.card-head{height:.48in;padding:.08in .12in;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid rgba(157,202,255,.24);background:linear-gradient(90deg,rgba(5,14,30,.92),rgba(14,39,75,.58))}.brand{font-size:13px;font-weight:1000;letter-spacing:1.4px}.brand em{font-style:normal;color:var(--cyan)}.sub{font-size:5.5px;color:#b7c9e5;letter-spacing:.65px;margin-top:2px}.chip{width:.35in;height:.27in;border-radius:.06in;background:linear-gradient(135deg,#ffe5a5,#a66f13);position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}.chip:before,.chip:after{content:"";position:absolute;background:rgba(65,38,0,.34)}.chip:before{left:48%;top:0;width:1px;height:100%}.chip:after{left:0;top:48%;height:1px;width:100%}
+.card-body{display:grid;grid-template-columns:1.83in 1.18in;gap:.07in;padding:.075in .10in .03in}.pass-name{font-size:9px;font-weight:950;line-height:1.05;max-height:.28in;overflow:hidden}.experience{margin-top:4px;font-size:5.25px;color:#cce0fa;line-height:1.12;max-height:.26in;overflow:hidden}.balance-label{margin-top:5px;font-size:4.3px;text-transform:uppercase;letter-spacing:.55px;color:#a9bdd9}.balance{font-size:20px;font-weight:1000;line-height:.95;background:linear-gradient(90deg,#fff,var(--cyan),#d0ff96);-webkit-background-clip:text;background-clip:text;color:transparent}.unit{font-size:6px;color:#d7e5f8;margin-left:2px}.serial{margin-top:5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:5px;color:#9db4d6}.rights{margin-top:4px;font-size:4.5px;line-height:1.12;color:#e8f1ff;max-height:.26in;overflow:hidden}.matrix-wrap{display:flex;justify-content:flex-end}.matrix{width:.83in;height:.83in;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:1px;padding:3px;border-radius:.07in;background:rgba(255,255,255,.92);box-shadow:0 0 .18in rgba(40,224,255,.28)}.matrix i{display:block;background:#e7eef7}.matrix i.on{background:#07152b}.verify{text-align:center;margin-top:4px;font-size:4.4px;color:#b8cbe7}.status-pill{margin-top:5px;border:1px solid rgba(183,255,74,.45);background:rgba(183,255,74,.1);color:#dfffad;border-radius:10px;padding:3px 5px;font-size:4.6px;font-weight:900;text-align:center}.footer-band{position:absolute;left:0;right:0;bottom:0;height:.28in;padding:0 .10in;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#09152a,#1f1851 62%,#0e3d52);border-top:1px solid rgba(255,255,255,.12);font-size:4.6px}.foot-strong{font-weight:900;color:#fff}.foot-muted{color:#a9bddc;text-align:right;max-width:1.55in;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.holo{position:absolute;left:.08in;bottom:.32in;width:.36in;height:.13in;border-radius:.08in;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--lime));opacity:.75;filter:saturate(1.4);box-shadow:0 0 10px rgba(154,101,255,.35)}
+.verifier{margin-top:16px;border:1px solid rgba(40,224,255,.28);background:rgba(7,20,40,.75);border-radius:15px;padding:13px}.challenge{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#071222;border:1px dashed #42689f;padding:9px;border-radius:9px;font-size:11px;word-break:break-all;color:#bdeeff}
+@media(max-width:1000px){.app{grid-template-columns:1fr}.card-wrap{position:static}.stage{min-height:auto}}@media(max-width:560px){.grid2,.grid3,.stats{grid-template-columns:1fr}}
+@media print{body{background:#fff}.controls,.no-print{display:none!important}.app{display:block;padding:0}.panel{border:0;box-shadow:none;padding:0;background:#fff}.stage{padding:0;min-height:0}.card-wrap{position:static;width:3.375in}.card{box-shadow:none}@page{size:3.375in 2.125in;margin:0}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<div class="app">
+<section class="panel controls">
+  <div class="kicker">Private closed-loop service instrument</div>
+  <h1>LUMEN Experience Credit Pass</h1>
+  <div class="help">Create a prepaid or promotional pass redeemable only for your own listed experiences, sessions, events, digital access, workshops, rentals, or other defined services.</div>
+  <div class="notice"><b>Use model:</b> sell access to a defined service, not “currency.” Credits are contractual redemption units inside your own program. This template is not legal tender, a bank account, an investment, government ID, or proof of regulated certification. Consumer, gift-card, tax, privacy, marketing, and refund rules may apply where you sell it.</div>
+
+  <h2>Pass identity</h2>
+  <label>Pass name<input id="passName" value="NEON NIGHT EXPERIENCE PASS"></label>
+  <label>Experience or service offered<textarea id="experience">Admission to one hosted immersive puzzle-night experience, including interactive stations, a digital keepsake, and one bonus challenge.</textarea></label>
+  <div class="grid2"><label>Issuer / studio<input id="issuer" value="Lumen Works Studio"></label><label>Program name<input id="program" value="LUMEN LOOP"></label></div>
+  <div class="grid2"><label>Pass serial<input id="serial" value="LXP-2026-0001"></label><label>Issue date<input id="issueDate" type="date"></label></div>
+  <div class="grid2"><label>Expiry / validity text<input id="validity" value="Valid for 12 months"></label><label>Venue / channel<input id="venue" value="Hosted venue or online portal"></label></div>
+
+  <h2>Credit and commercial utility</h2>
+  <div class="grid3"><label>Starting credits<input id="starting" type="number" min="0" step="0.01" value="100"></label><label>Unit name<input id="unitName" value="LUX"></label><label>Sale price (display)<input id="salePrice" value="$45 CAD"></label></div>
+  <label>Redemption right<textarea id="rights">100 LUX may be redeemed for one standard Neon Night admission. Optional add-ons may use smaller LUX amounts according to the current issuer menu.</textarea></label>
+  <label>Usage location / method<textarea id="usage">Present the pass serial and verifier response at the issuer’s event desk or online booking portal. Redemption is completed only by the issuer.</textarea></label>
+  <div class="grid2"><label>Minimum redemption<input id="minimum" type="number" min="0" step="0.01" value="10"></label><label>Maximum transfers<input id="maxTransfers" type="number" min="0" step="1" value="3"></label></div>
+  <div class="row"><input id="transferable" type="checkbox" checked><label for="transferable" style="margin:0">Allow private transfer to another holder</label></div>
+  <div class="row"><input id="cashValue" type="checkbox"><label for="cashValue" style="margin:0">Issuer explicitly promises cash redemption (leave off unless legally reviewed)</label></div>
+
+  <h2>Interactive use</h2>
+  <div class="grid2"><label>Redeem amount<input id="redeemAmount" type="number" min="0" step="0.01" value="10"></label><label>Redemption note<input id="redeemNote" value="Bonus challenge access"></label></div>
+  <div class="actions"><button class="primary" id="redeemBtn">Redeem credits</button><button class="secondary" id="undoBtn">Undo last</button><button class="accent" id="refreshChallenge">New verifier challenge</button></div>
+  <div class="stats"><div class="stat"><b id="balanceStat">100</b><span>Current balance</span></div><div class="stat"><b id="usedStat">0</b><span>Credits used</span></div><div class="stat"><b id="transferStat">0 / 3</b><span>Transfers</span></div></div>
+
+  <div class="verifier">
+    <div class="kicker">Two-party verifier</div>
+    <div class="help">The issuer reads the challenge aloud. The holder enters it into the verifier field. A matching response confirms that both parties are viewing the same pass data; it does not prove identity.</div>
+    <div class="challenge" id="challengeText">—</div>
+    <div class="grid2"><label>Verifier input<input id="challengeInput" placeholder="Enter challenge"></label><label>Response<input id="challengeResponse" readonly></label></div>
+    <div class="actions"><button class="secondary" id="verifyBtn">Verify pass response</button></div>
+  </div>
+
+  <h2>Transfer</h2>
+  <div class="grid2"><label>From holder reference<input id="fromHolder" value="Original purchaser"></label><label>To holder reference<input id="toHolder" placeholder="Recipient nickname or reference"></label></div>
+  <label>Transfer note<input id="transferNote" value="Private transfer of remaining redemption rights"></label>
+  <div class="actions"><button class="secondary" id="transferBtn">Record transfer</button></div>
+
+  <h2>Terms shown with pass</h2>
+  <label>Program terms<textarea id="terms">Closed-loop service credits. Redeemable only with the named issuer for listed services, subject to availability and booking rules. Not legal tender, not an investment, and not government identification. Lost-pass replacement and refund rights follow the issuer’s published terms and applicable law.</textarea></label>
+
+  <h2>Activity ledger</h2>
+  <div class="log" id="ledger"></div>
+  <div class="actions"><button class="primary" id="saveBtn">Save pass locally</button><button class="secondary" id="newBtn">New pass</button><button class="secondary" id="exportJson">Export pass file</button><button class="secondary" id="importBtn">Import pass</button><input id="importFile" type="file" accept="application/json" hidden></div>
+  <div class="actions"><button class="accent" id="pngBtn">Export card PNG</button><button class="secondary" id="printBtn">Print wallet card</button><button class="secondary" id="htmlBtn">Export editable HTML</button></div>
+  <div class="help" id="status"></div>
+</section>
+
+<section class="panel stage">
+  <div class="card-wrap">
+    <div class="card" id="card">
+      <div class="glow"></div>
+      <div class="card-head"><div><div class="brand"><em>LUMEN</em> PASS</div><div class="sub" id="vProgram">LUMEN LOOP • CLOSED-LOOP EXPERIENCE CREDIT</div></div><div class="chip"></div></div>
+      <div class="card-body">
+        <div>
+          <div class="pass-name" id="vPassName">NEON NIGHT EXPERIENCE PASS</div>
+          <div class="experience" id="vExperience">Admission to one hosted immersive experience.</div>
+          <div class="balance-label">Available utility</div>
+          <div><span class="balance" id="vBalance">100</span><span class="unit" id="vUnit">LUX</span></div>
+          <div class="serial" id="vSerial">LXP-2026-0001</div>
+          <div class="rights" id="vRights">Redeemable for issuer services under the published program terms.</div>
+        </div>
+        <div>
+          <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
+          <div class="verify" id="vVerifier">VERIFY 000000</div>
+          <div class="status-pill" id="vStatus">ACTIVE • PRIVATE SERVICE PASS</div>
+        </div>
+      </div>
+      <div class="holo"></div>
+      <div class="footer-band"><div><span class="foot-strong" id="vIssuer">Lumen Works Studio</span><br><span id="vPrice">ISSUED FOR $45 CAD</span></div><div class="foot-muted" id="vTerms">Not legal tender • issuer redemption only</div></div>
+    </div>
+  </div>
+</section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fieldIds=['passName','experience','issuer','program','serial','issueDate','validity','venue','starting','unitName','salePrice','rights','usage','minimum','maxTransfers','redeemAmount','redeemNote','fromHolder','toHolder','transferNote','terms'];
+let state={balance:100,ledger:[],transfers:0,challenge:'',digest:'',createdAt:new Date().toISOString()};
+function cleanNum(v,fallback=0){const n=Number(v);return Number.isFinite(n)?n:fallback}
+function fmt(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:2})}
+function randomSerial(){return 'LXP-'+new Date().getFullYear()+'-'+Math.random().toString(36).slice(2,8).toUpperCase()}
+function snapshot(){const data={};fieldIds.forEach(id=>data[id]=$(id).value);data.transferable=$('transferable').checked;data.cashValue=$('cashValue').checked;return{format:'LumenExperienceCreditPass',version:1,data,state:{...state},updatedAt:new Date().toISOString()}}
+async function hashText(text){if(window.crypto?.subtle){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}let h=2166136261;for(let i=0;i<text.length;i++)h=Math.imul(h^text.charCodeAt(i),16777619);return(h>>>0).toString(16).padStart(8,'0').repeat(8)}
+async function refreshDigest(){const core=JSON.stringify({serial:$('serial').value,issuer:$('issuer').value,balance:state.balance,ledger:state.ledger,transfers:state.transfers,rights:$('rights').value,terms:$('terms').value});state.digest=await hashText(core);drawMatrix(state.digest);$('vVerifier').textContent='VERIFY '+state.digest.slice(0,6).toUpperCase();}
+function drawMatrix(seed){const box=$('matrix');box.innerHTML='';for(let i=0;i<121;i++){const e=document.createElement('i');const c=parseInt(seed[(i*7)%seed.length]||'0',16);if(((c+i*3)%5)<2||i<3||i%11===0)e.className='on';box.appendChild(e)}}
+function ledgerItem(type,amount,note){return{id:crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random(),type,amount,note,at:new Date().toISOString(),balance:state.balance}}
+function renderLedger(){const box=$('ledger');if(!state.ledger.length){box.innerHTML='<div class="log-item help">No activity yet. The first redemption or transfer will appear here.</div>';return}box.innerHTML=[...state.ledger].reverse().map(x=>`<div class="log-item"><strong>${x.type}</strong> • ${new Date(x.at).toLocaleString()}<br>${x.amount!==null&&x.amount!==undefined?fmt(x.amount)+' '+escapeHtml($('unitName').value)+' • ':''}${escapeHtml(x.note||'')}<br>Balance after: ${fmt(x.balance)} ${escapeHtml($('unitName').value)}</div>`).join('')}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c])}
+async function update(){
+  $('vPassName').textContent=($('passName').value||'EXPERIENCE CREDIT PASS').toUpperCase();$('vExperience').textContent=$('experience').value||'Private issuer service access';
+  $('vBalance').textContent=fmt(state.balance);$('vUnit').textContent=($('unitName').value||'CREDITS').toUpperCase();$('vSerial').textContent=$('serial').value||'—';$('vRights').textContent=$('rights').value||'Redeemable under issuer terms.';
+  $('vIssuer').textContent=$('issuer').value||'Private issuer';$('vPrice').textContent='ISSUED FOR '+($('salePrice').value||'PRIVATE CONSIDERATION');$('vProgram').textContent=(($('program').value||'PRIVATE PROGRAM')+' • CLOSED-LOOP EXPERIENCE CREDIT').toUpperCase();
+  $('vTerms').textContent=$('cashValue').checked?'Issuer cash-redemption promise applies • review terms':'Not legal tender • issuer redemption only';
+  const max=Math.max(0,Math.floor(cleanNum($('maxTransfers').value,0)));$('balanceStat').textContent=fmt(state.balance);$('usedStat').textContent=fmt(Math.max(0,cleanNum($('starting').value,0)-state.balance));$('transferStat').textContent=state.transfers+' / '+max;
+  $('vStatus').textContent=state.balance>0?'ACTIVE • PRIVATE SERVICE PASS':'REDEEMED • ZERO BALANCE';renderLedger();await refreshDigest();
+}
+function newChallenge(){const words=['NOVA','PULSE','ORBIT','SPARK','ECHO','FLUX','PRISM','AURA'];state.challenge=words[Math.floor(Math.random()*words.length)]+'-'+Math.floor(1000+Math.random()*9000);$('challengeText').textContent=state.challenge;$('challengeInput').value='';$('challengeResponse').value='';}
+$('refreshChallenge').onclick=newChallenge;
+$('verifyBtn').onclick=async()=>{const input=$('challengeInput').value.trim().toUpperCase();if(input!==state.challenge.toUpperCase()){ $('challengeResponse').value='NO MATCH';return }const response=(await hashText(input+'|'+$('serial').value+'|'+state.digest)).slice(0,10).toUpperCase();$('challengeResponse').value=response;};
+$('redeemBtn').onclick=async()=>{const amount=cleanNum($('redeemAmount').value,0),min=cleanNum($('minimum').value,0);if(amount<=0)return alert('Enter a positive redemption amount.');if(amount<min)return alert('Amount is below the minimum redemption.');if(amount>state.balance)return alert('Insufficient pass balance.');state.balance=Math.round((state.balance-amount)*100)/100;state.ledger.push(ledgerItem('REDEMPTION',amount,$('redeemNote').value||'Issuer service redemption'));await update();};
+$('undoBtn').onclick=async()=>{const last=state.ledger.pop();if(!last)return;if(last.type==='REDEMPTION')state.balance=Math.round((state.balance+last.amount)*100)/100;if(last.type==='TRANSFER')state.transfers=Math.max(0,state.transfers-1);await update();};
+$('transferBtn').onclick=async()=>{if(!$('transferable').checked)return alert('Transfers are disabled for this pass.');const max=Math.max(0,Math.floor(cleanNum($('maxTransfers').value,0)));if(state.transfers>=max)return alert('Maximum transfer count reached.');if(!$('toHolder').value.trim())return alert('Enter a recipient reference.');state.transfers++;state.ledger.push(ledgerItem('TRANSFER',null,`${$('fromHolder').value||'Holder'} → ${$('toHolder').value}. ${$('transferNote').value||''}`));$('fromHolder').value=$('toHolder').value;$('toHolder').value='';await update();};
+fieldIds.forEach(id=>{$(id).addEventListener('input',async()=>{if(id==='starting'&&state.ledger.length===0)state.balance=Math.max(0,cleanNum($('starting').value,0));await update()});$(id).addEventListener('change',update)});$('transferable').onchange=update;$('cashValue').onchange=update;
+function download(name,blob){const a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),800)}
+$('saveBtn').onclick=()=>{localStorage.setItem('lumen-pass-'+$('serial').value,JSON.stringify(snapshot()));$('status').textContent='Saved locally in this browser.'};
+$('newBtn').onclick=async()=>{if(!confirm('Start a new pass?'))return;state={balance:100,ledger:[],transfers:0,challenge:'',digest:'',createdAt:new Date().toISOString()};$('serial').value=randomSerial();$('starting').value='100';newChallenge();await update();};
+$('exportJson').onclick=()=>download(($('serial').value||'lumen-pass')+'.json',new Blob([JSON.stringify(snapshot(),null,2)],{type:'application/json'}));
+$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=()=>{const f=$('importFile').files?.[0];if(!f)return;const r=new FileReader();r.onload=async()=>{try{const p=JSON.parse(r.result);Object.entries(p.data||{}).forEach(([k,v])=>{if($(k))$(k).value=v});$('transferable').checked=!!p.data?.transferable;$('cashValue').checked=!!p.data?.cashValue;state={...state,...p.state};newChallenge();await update()}catch(e){alert('Invalid pass file.')}};r.readAsText(f)};
+$('printBtn').onclick=()=>window.print();
+$('pngBtn').onclick=async()=>{try{$('status').textContent='Rendering card…';if(typeof html2canvas!=='function')throw new Error();const c=await html2canvas($('card'),{backgroundColor:null,scale:3,useCORS:true});c.toBlob(b=>{download(($('serial').value||'lumen-pass')+'.png',b);$('status').textContent='PNG exported.'},'image/png')}catch(e){$('status').textContent='PNG export unavailable. Reload while online and try again.'}};
+$('htmlBtn').onclick=()=>{const clone=document.documentElement.cloneNode(true);clone.querySelector('body').insertAdjacentHTML('beforeend',`<script>window.addEventListener('DOMContentLoaded',async()=>{const p=${JSON.stringify(snapshot())};Object.entries(p.data||{}).forEach(([k,v])=>{if(document.getElementById(k))document.getElementById(k).value=v});document.getElementById('transferable').checked=!!p.data.transferable;document.getElementById('cashValue').checked=!!p.data.cashValue;state={...state,...p.state};newChallenge();await update()});<\/script>`);download('editable-lumen-experience-pass.html',new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html'}))};
+(function init(){const d=new Date();$('issueDate').value=d.toISOString().slice(0,10);state.balance=cleanNum($('starting').value,100);newChallenge();update()})();
+</script>
+</body>
+</html>
